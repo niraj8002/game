@@ -42,7 +42,7 @@ const GameGrid = () => {
           <GameCard key={index} title={game.title} icon={game.icon} />
         ))}
       </div>
-      <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer p-4 mt-3">
+      <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer p-2 mt-3">
         <div className="grid grid-cols-3 divide-x divide-yellow-300">
           {games2.map((item, idx) => (
             <div key={idx} className="flex flex-col items-center">

@@ -22,7 +22,7 @@ const SlotsSection = () => {
       <h3 className="text-yellow-400 font-bold text-lg mb-4">| Slots</h3>
 
       {/* Grid */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3 ">
         {slots.map((slot) => (
           <div
             key={slot.id}
