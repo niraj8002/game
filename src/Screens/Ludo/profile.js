@@ -492,6 +492,8 @@ import { FaMoneyCheck } from "react-icons/fa";
 import { RiBankCardFill } from "react-icons/ri";
 import { GrTransaction } from "react-icons/gr";
 import { IoDiamondOutline } from "react-icons/io5";
+import img from "../../assets/notebook.png";
+import img2 from "../../assets/top-up.png";
 
 function Badge({ children }) {
   return (
@@ -550,10 +552,15 @@ function BalanceCard() {
       {/* Actions */}
       <div className="grid grid-cols-4 gap-3">
         <ActionTile
-          // color="bg-rose-500"
-          icon={<Wallet className="h-7 w-7 text-rose-500" />}
+          icon={
+            <Wallet
+              className="h-7 w-7 text-rose-500"
+              fill="currentColor" // 👈 yeh add karo
+            />
+          }
           label="ARWallet"
         />
+
         <ActionTile
           // color="bg-orange-500"
           icon={<HiWallet className="h-7 w-7 text-orange-500" />}
@@ -590,27 +597,52 @@ function ActionTile({ color, icon, label }) {
 function ShortcutGrid() {
   return (
     <section className="grid grid-cols-2 gap-3 p-4">
-      <ShortcutCard
+      {/* <ShortcutCard
         color="bg-sky-500"
         icon={<Gamepad2 className="h-7 w-7 text-[#f1e6ce]" />}
         title="Game History"
         subtitle="My game history"
-      />
+      /> */}
       <ShortcutCard
+        // color="bg-emerald-500"
+        icon={<img src={img} className="h-8 w-8 filter-blue" />}
+        title="Game History"
+        subtitle="My game history"
+      />
+      {/* <ShortcutCard
         color="bg-emerald-500"
         icon={<GrTransaction className="h-7 w-7 text-[#f1e6ce]" />}
         title="Transaction"
-        subtitle="My transaction history"
-      />
+        subtitle="My Transaction history"
+      /> */}
       <ShortcutCard
-        color="bg-rose-500"
-        icon={<HiWallet className="h-7 w-7 text-[#f1e6ce]" />}
+        // color="bg-emerald-500"
+        icon={
+          <img
+            src={img} // apni image ka path (public folder me rakho)
+            alt="notebook"
+            className="h-8 w-8 green-sky"
+          />
+        }
+        title="Transaction"
+        subtitle="My Transaction history"
+      />
+
+      <ShortcutCard
+        // color="bg-rose-500"
+        icon={<HiWallet className="h-9 w-9 text-rose-500" />}
         title="Deposit"
         subtitle="My deposit history"
       />
       <ShortcutCard
-        color="bg-orange-500"
-        icon={<RiBankCardFill className="h-7 w-7 text-[#f1e6ce]" />}
+        // color="bg-orange-500"
+        icon={
+          <img
+            src={img2} // apni image ka path (public folder me rakho)
+            alt="notebook"
+            className="h-9 w-9 withdrow-key"
+          />
+        }
         title="Withdraw"
         subtitle="My withdraw history"
       />
@@ -638,7 +670,7 @@ function Row({ icon, label, end, badge }) {
   return (
     <div className="flex items-center justify-between py-4 px-2">
       <div className="flex items-center">
-        <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#d9ac4f]">
+        <div className="mr-2 flex h-10 w-10 items-center justify-center rounded-lg ">
           {icon}
         </div>
         <span className="text-sm text-white">{label}</span>
@@ -661,23 +693,23 @@ function ListMenu() {
     <section className="px-4">
       <div className="border-b border-white/20">
         <Row
-          icon={<Bell className="h-5 w-5 text-gray-100" />}
+          icon={<Bell className="h-6 w-6 text-[#d9ac4f]" />}
           label="Notification"
           badge={1}
         />
       </div>
       <div className="border-b border-white/20">
-        <Row icon={<Gift className="h-5 w-5 text-gray-100" />} label="Gifts" />
+        <Row icon={<Gift className="h-6 w-6 text-[#d9ac4f]" />} label="Gifts" />
       </div>
       <div className="border-b border-white/20">
         <Row
-          icon={<BarChart3 className="h-5 w-5 text-gray-100" />}
+          icon={<BarChart3 className="h-6 w-6 text-[#d9ac4f]" />}
           label="Game statistics"
         />
       </div>
       <div className="border-b border-white/20">
         <Row
-          icon={<Globe className="h-5 w-5 text-gray-100" />}
+          icon={<Globe className="h-6 w-6 text-[#d9ac4f]" />}
           label="Language"
           end={<span className="text-xs text-zinc-400">English</span>}
         />

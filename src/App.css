@@ -1,0 +1,13 @@
+.filter-blue {
+  filter: invert(65%) sepia(90%) saturate(500%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+
+.green-sky {
+  filter: invert(75%) sepia(45%) saturate(450%) hue-rotate(60deg) brightness(95%) contrast(90%);
+}
+
+
+.withdrow-key {
+  filter: invert(55%) sepia(95%) saturate(650%) hue-rotate(350deg) brightness(90%) contrast(95%);
+}
