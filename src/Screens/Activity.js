@@ -207,8 +207,8 @@ const ActivityGame = () => {
   };
 
   return (
-    <main className="min-h-dvh w-full bg-zinc-900 text-zinc-100 font-sans ">
-      <div className="mx-auto w-full max-w-sm px-3 py-4">
+    <main className="min-h-screen w-full bg-zinc-900 text-zinc-100 font-sans ">
+      <div className="mx-auto w-full max-w- px-3 py-4">
         {/* Header: Help + Timer */}
         <div className="grid grid-cols-2 gap-2">
           <GoldCard className="flex items-center gap-2">
@@ -278,7 +278,7 @@ const ActivityGame = () => {
           </div>
 
           {/* Number balls 0..9 */}
-          <div className="mt-3 grid grid-cols-5 gap-2">
+          <div className="mt-3 grid grid-cols-5 gap-5">
             {numbers.map((n) => (
               <NumberBall
                 key={n}
