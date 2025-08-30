@@ -486,6 +486,12 @@ import {
 import user from "../../assets/user.png";
 import { RiVipLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { FaWallet } from "react-icons/fa6";
+import { HiWallet } from "react-icons/hi2";
+import { FaMoneyCheck } from "react-icons/fa";
+import { RiBankCardFill } from "react-icons/ri";
+import { GrTransaction } from "react-icons/gr";
+import { IoDiamondOutline } from "react-icons/io5";
 
 function Badge({ children }) {
   return (
@@ -550,17 +556,17 @@ function BalanceCard() {
         />
         <ActionTile
           // color="bg-orange-500"
-          icon={<ArrowDownToLine className="h-7 w-7 text-orange-500" />}
+          icon={<HiWallet className="h-7 w-7 text-orange-500" />}
           label="Deposit"
         />
         <ActionTile
           // color="bg-sky-500"
-          icon={<ArrowUpFromLine className="h-7 w-7 text-sky-500" />}
+          icon={<FaWallet className="h-7 w-7 text-sky-500" />}
           label="Withdraw"
         />
         <ActionTile
           // color="bg-emerald-500"
-          icon={<Crown className="h-7 w-7 text-emerald-500" />}
+          icon={<IoDiamondOutline className="h-7 w-7 text-emerald-500" />}
           label="VIP"
         />
       </div>
@@ -586,25 +592,25 @@ function ShortcutGrid() {
     <section className="grid grid-cols-2 gap-3 p-4">
       <ShortcutCard
         color="bg-sky-500"
-        icon={<Gamepad2 className="h-5 w-5 text-white" />}
+        icon={<Gamepad2 className="h-7 w-7 text-[#f1e6ce]" />}
         title="Game History"
         subtitle="My game history"
       />
       <ShortcutCard
         color="bg-emerald-500"
-        icon={<CreditCard className="h-5 w-5 text-white" />}
+        icon={<GrTransaction className="h-7 w-7 text-[#f1e6ce]" />}
         title="Transaction"
         subtitle="My transaction history"
       />
       <ShortcutCard
         color="bg-rose-500"
-        icon={<ArrowDownToLine className="h-5 w-5 text-white" />}
+        icon={<HiWallet className="h-7 w-7 text-[#f1e6ce]" />}
         title="Deposit"
         subtitle="My deposit history"
       />
       <ShortcutCard
         color="bg-orange-500"
-        icon={<ArrowUpFromLine className="h-5 w-5 text-white" />}
+        icon={<RiBankCardFill className="h-7 w-7 text-[#f1e6ce]" />}
         title="Withdraw"
         subtitle="My withdraw history"
       />
@@ -614,9 +620,9 @@ function ShortcutGrid() {
 
 function ShortcutCard({ color, icon, title, subtitle }) {
   return (
-    <div className="flex items-center rounded-xl  bg-[#333332] p-3">
+    <div className="flex items-center rounded-xl  bg-[#333332] p-2">
       <div
-        className={`mr-3 flex h-10 w-10 items-center justify-center rounded-lg ${color}`}
+        className={`mr-3 flex h-10 w-12 items-center justify-center  ${color} rounded-xl`}
       >
         {icon}
       </div>
@@ -729,7 +735,7 @@ function ServiceCenter() {
   );
 }
 
-function LogoutButton({navigate}) {
+function LogoutButton({ navigate }) {
   return (
     <div className="px-4 py-6 mb-5">
       <button
@@ -755,7 +761,7 @@ export default function ProfilePage() {
       <ShortcutGrid />
       <ListMenu />
       <ServiceCenter />
-      <LogoutButton navigate={navigate}/>
+      <LogoutButton navigate={navigate} />
       <div className="h-8" />
     </main>
   );

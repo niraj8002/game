@@ -601,6 +601,10 @@ import {
   User,
   Smile,
 } from "lucide-react";
+import { FaWallet } from "react-icons/fa6";
+import { HiWallet } from "react-icons/hi2";
+import { FaMoneyCheck } from "react-icons/fa";
+import { RiBankCardFill } from "react-icons/ri";
 
 /**
  * Mobile Wallet Screen (React + TailwindCSS)
@@ -615,24 +619,18 @@ const UserWallet = () => {
     <div className=" min-h-screen bg-[#0f0f10] text-white relative overflow-hidden">
       {/* Header */}
       <div className="relative px-4 pt-2 pb-2 bg-gradient-to-b from-[#1c1c1e] to-[#141416] shadow">
-        <div className="flex items-center gap-3">
-          <button
-            className="p-2 rounded-full bg-white/5 active:scale-95"
-            onClick={() => window.history.back()}
-          >
-            <ArrowLeft size={18} />
-          </button>
-          <span className="text-sm/none opacity-70">Back</span>
-        </div>
-
-        <div className=" flex flex-col items-center ">
-          <div className="rounded-full bg-white/5 grid place-items-center -mb-0">
-            <WalletIcon size={22} className="opacity-90" />
-          </div>
-          <h1 className="-mt-2 text-lg font-semibold">Wallet</h1>
-          <div className=" flex items-center gap-1 text-3xl font-bold tracking-tight">
-            <span className="">₹</span>
-            <span>0.00</span>
+        <div className="mt-3 flex flex-col items-center ">
+          <h1 className="mb-3 text-lg font-semibold text-gray-300 tracking-wider">
+            Wallet
+          </h1>
+          <div className=" flex flex-col items-center gap-1 text-3xl  tracking-tight">
+            <div className="rounded-full bg-white/5 grid place-items-center -mb-0">
+              <FaWallet size={30} className="opacity-90 mb-2 text-gray-300" />
+            </div>
+            <span className="text-gray-300">
+              <span className="mr-1">₹</span>
+              <span>0.00</span>
+            </span>
           </div>
           <p className="text-xs mt-1 opacity-70">Total balance</p>
         </div>
@@ -658,31 +656,31 @@ const UserWallet = () => {
           {/* Actions */}
           <div className="mt-5 grid grid-cols-4 gap-3">
             <Action
-              icon={<Download size={18} />}
+              icon={<FaWallet size={28} />}
               label="Deposit"
-              tint="bg-[rgb(212,164,68)] text-amber-300"
+              tint="bg-gradient-to-t from-[#d4ae61] to-[#c99220] text-amber-300"
             />
             <Action
-              icon={<Upload size={18} />}
+              icon={<HiWallet size={28} />}
               label="Withdraw"
-              tint="bg-[rgb(212,164,68)] text-sky-300"
+              tint="bg-gradient-to-t from-[#65b7c7] to-[#23a1ba] text-sky-200"
             />
             <Action
-              icon={<History size={18} />}
+              icon={<FaMoneyCheck size={28} />}
               label="Deposit history"
-              tint="bg-[rgb(212,164,68)] text-rose-300"
+              tint="bg-gradient-to-t from-[#c25b6a] to-[#d9233d] text-rose-300"
             />
             <Action
-              icon={<BadgeIndianRupee size={18} />}
+              icon={<RiBankCardFill size={28} />}
               label="Withdraw history"
-              tint="bg-[rgb(212,164,68)] text-emerald-300"
+              tint="bg-gradient-to-t from-[#23d990] to-[#63d4a7] text-emerald-200"
             />
           </div>
         </div>
       </div>
 
       {/* Mini cards row (placeholders like in screenshot) */}
-      <div className="px-4 mt-4">
+      <div className="px-4 mt-4 h-[30vh]">
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
           <MiniCard title="ARGame" value="0.00" />
           <MiniCard title="Promo Bonus" value="0.00" />
@@ -729,7 +727,7 @@ function Action({ icon, label, tint }) {
 
 function MiniCard({ title, value }) {
   return (
-    <div className="min-w-[110px] rounded-xl bg-[#17181a] border border-white/5 p-3">
+    <div className="min-w-[120px] h-[10vh]  rounded-xl bg-[#17181a] border border-white/5 p-3">
       <div className="text-[10px] opacity-60">{title}</div>
       <div className="mt-1 text-sm font-semibold">{value}</div>
     </div>

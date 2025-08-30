@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 // import "./App.css";
 import "./index.css";
-import { Route, BrowserRouter, Routes, HashRouter } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter,
+  Routes,
+  HashRouter,
+  useLocation,
+} from "react-router-dom";
 import { Layout, ConfigProvider } from "antd";
 import enUS from "antd/lib/locale-provider/en_US";
 import { useJwt, decodeToken } from "react-jwt";
@@ -46,6 +52,7 @@ import ActivityGame from "./Screens/Activity";
 require("./Screens/login.css");
 
 function App() {
+  
   const [waitstate, setWaitstate] = useState(true);
   const [authToken, setAuthToken] = useState(null);
   // const { authToken, isExpired } = useJwt(JSON.parse(localStorage.getItem("authtoken")));
@@ -85,7 +92,7 @@ function App() {
   };
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="App">
         {!waitstate && (
           <UserContext.Provider
@@ -186,7 +193,7 @@ function App() {
           </UserContext.Provider>
         )}
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
