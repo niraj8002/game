@@ -296,33 +296,41 @@ const ActivityGame = () => {
         </button>
       </div>
 
-      {/* Game Selection */}
-      <div className="flex items-center justify-center gap-1 px-2 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
-        <GameButton
-          icon={<ClockIcon active={activeGame === "30sec"} />}
-          label="WinGo 30sec"
-          active={activeGame === "30sec"}
-          onClick={() => setActiveGame("30sec")}
-        />
-        <GameButton
-          icon={<ClockIcon active={activeGame === "1min"} />}
-          label="WinGo 1Min"
-          active={activeGame === "1min"}
-          onClick={() => setActiveGame("1min")}
-        />
-        <GameButton
-          icon={<ClockIcon active={activeGame === "3min"} />}
-          label="WinGo 3Min"
-          active={activeGame === "3min"}
-          onClick={() => setActiveGame("3min")}
-        />
-        <GameButton
-          icon={<ClockIcon active={activeGame === "5min"} />}
-          label="WinGo 5Min"
-          active={activeGame === "5min"}
-          onClick={() => setActiveGame("5min")}
-        />
-      </div>
+    <div className="flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
+  
+  {/* Active Button - WinGo 30 sec */}
+  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-md bg-gradient-to-b from-[#FFD77C] to-[#E6A93A]">
+    <svg className="w-10 h-10 text-yellow-800 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
+    </svg>
+    <span className="text-sm font-medium text-black">WinGo 30sec</span>
+  </div>
+
+  {/* Inactive Button - 1 Min */}
+  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]">
+    <svg className="w-10 h-10 text-gray-600 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
+    </svg>
+    <span className="text-sm font-medium text-gray-700">WinGo 1 Min</span>
+  </div>
+
+  {/* Inactive Button - 3 Min */}
+  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]">
+    <svg className="w-10 h-10 text-gray-600 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
+    </svg>
+    <span className="text-sm font-medium text-gray-700">WinGo 3 Min</span>
+  </div>
+
+  {/* Inactive Button - 5 Min */}
+  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]">
+    <svg className="w-10 h-10 text-gray-600 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
+    </svg>
+    <span className="text-sm font-medium text-gray-700">WinGo 5 Min</span>
+  </div>
+</div>
+
 
       {/* Main Game Area */}
       <div className="mx-4 mt-4 rounded-2xl bg-zinc-800 px-2">
@@ -525,31 +533,150 @@ const ActivityGame = () => {
             </div>
           </div>
         )}
+{tab === "chart" && (
+  <div className="w-full rounded-xl bg-[#1f1f1f] text-gray-200">
+    {/* ---- Statistic Box ---- */}
+    <div className="p-3">
+      <div className="bg-[#2b2b2b] rounded-md overflow-hidden">
+        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs font-semibold border-b border-gray-700">
+          <div className="px-2 py-2">Statistic</div>
+          <div className="col-span-10 px-2 py-2 text-right">(last 100 Periods)</div>
+        </div>
 
-        {tab === "chart" && (
-          <div className="rounded-xl bg-zinc-800 p-4">
-            <div className="text-sm text-zinc-300 mb-3">
-              Number frequency chart
+        {/* Winning Numbers */}
+        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+          <div className="px-2 py-2">Winning Numbers</div>
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="flex items-center justify-center">
+              <div className="w-6 h-6 flex items-center justify-center rounded-full border border-red-500 text-red-400">
+                {i}
+              </div>
             </div>
-            <div className="grid grid-cols-10 gap-1">
-              {[0, 5, 1, 9, 5, 5, 1, 2, 7, 3].map((v, i) => (
-                <div key={i} className="flex h-24 items-end justify-center">
-                  <div
-                    className={cx(
-                      "w-6 rounded-t-sm",
-                      v >= 6
-                        ? "bg-amber-500"
-                        : v <= 3
-                        ? "bg-blue-500"
-                        : "bg-emerald-500"
-                    )}
-                    style={{ height: `${(v + 1) * 3}px` }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
+        </div>
+
+        {/* Missing */}
+        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+          <div className="px-2 py-2">Missing</div>
+          {[46, 10, 15, 4, 8, 2, 1, 24, 12, 0].map((v, i) => (
+            <div key={i} className="flex items-center justify-center">{v}</div>
+          ))}
+        </div>
+
+        {/* Avg missing */}
+        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+          <div className="px-2 py-2">Avg missing</div>
+          {[10, 10, 5, 6, 10, 7, 6, 8, 11, 9].map((v, i) => (
+            <div key={i} className="flex items-center justify-center">{v}</div>
+          ))}
+        </div>
+
+        {/* Frequency */}
+        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+          <div className="px-2 py-2">Frequency</div>
+          {[8, 8, 14, 13, 8, 11, 12, 10, 7, 9].map((v, i) => (
+            <div key={i} className="flex items-center justify-center">{v}</div>
+          ))}
+        </div>
+
+        {/* Max consecutive */}
+        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs">
+          <div className="px-2 py-2">Max consecutive</div>
+          {[2, 2, 3, 2, 2, 1, 1, 1, 1, 2].map((v, i) => (
+            <div key={i} className="flex items-center justify-center">{v}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* ---- Table ---- */}
+    <div className="relative">
+      {/* Red connector lines */}
+      <svg className="absolute top-0 left-[160px] h-full w-[400px] pointer-events-none">
+        {[
+          { win: 1 },
+          { win: 6 },
+          { win: 2 },
+          { win: 3 },
+          { win: 2 },
+          { win: 9 },
+          { win: 4 },
+          { win: 6 },
+          { win: 1 },
+          { win: 9 },
+        ].map((row, i, arr) =>
+          i < arr.length - 1 ? (
+            <line
+              key={i}
+              x1={row.win * 40 + 20}
+              y1={i * 48 + 24}
+              x2={arr[i + 1].win * 40 + 20}
+              y2={(i + 1) * 48 + 24}
+              stroke="red"
+              strokeWidth="2"
+            />
+          ) : null
         )}
+      </svg>
+
+      {/* Rows */}
+      {[
+        { id: "20250831100051896", win: 1, icon: "S" },
+        { id: "20250831100051895", win: 6, icon: "B" },
+        { id: "20250831100051894", win: 2, icon: "S" },
+        { id: "20250831100051893", win: 3, icon: "S" },
+        { id: "20250831100051892", win: 2, icon: "S" },
+        { id: "20250831100051891", win: 9, icon: "B" },
+        { id: "20250831100051890", win: 4, icon: "S" },
+        { id: "20250831100051889", win: 6, icon: "B" },
+        { id: "20250831100051888", win: 1, icon: "S" },
+        { id: "20250831100051887", win: 9, icon: "B" },
+      ].map((row, ri) => (
+        <div
+          key={ri}
+          className="grid grid-cols-[160px_repeat(10,40px)_40px] text-xs border-b border-gray-700"
+        >
+          <div className="px-2 py-3">{row.id}</div>
+          {[...Array(10)].map((_, i) => (
+            <div
+              key={i}
+              className={`flex items-center justify-center ${
+                i === row.win
+                  ? "bg-green-500 text-white rounded-full w-6 h-6 mx-auto"
+                  : "text-gray-400"
+              }`}
+            >
+              {i}
+            </div>
+          ))}
+          <div
+            className={`px-2 py-3 font-bold text-center ${
+              row.icon === "S" ? "text-blue-400" : "text-yellow-400"
+            }`}
+          >
+            {row.icon}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* ---- Pagination ---- */}
+    <div className="flex items-center justify-center gap-4 px-4 py-3 border-t border-gray-700 text-sm">
+      <button className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+        ◀
+      </button>
+      <span>1/50</span>
+      <button className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+        ▶
+      </button>
+    </div>
+  </div>
+)}
+
+
+
+
+
 
         {tab === "my" && (
           <div className="space-y-2">
