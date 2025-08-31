@@ -485,7 +485,7 @@ import {
 } from "lucide-react";
 import user from "../../assets/user.png";
 import { RiVipLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaWallet } from "react-icons/fa6";
 import { HiWallet } from "react-icons/hi2";
 import { FaMoneyCheck } from "react-icons/fa";
@@ -547,6 +547,16 @@ function BalanceCard() {
               <RotateCcw className="h-4 w-4" />
             </button>
           </div>
+        </div>
+        <div className="mt-1 flex items-baseline gap-2">
+          {/* <p className="text-xs text-zinc-400">wallet</p> */}
+          <Link
+            to="/Wallet"
+            className="rounded-3xl px-[12px] py-[6px] text-[13px] font-medium text-white bg-[#d9ac4f] hover:bg-[#c38b2e]"
+            aria-label="Refresh balance"
+          >
+            Enter wallet
+          </Link>
         </div>
       </div>
       {/* Actions */}

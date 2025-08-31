@@ -48,6 +48,7 @@ import BottomNavbar from "./Screens/BottomNavbar";
 import ChatWidget from "./Screens/chatwith";
 import WheelWidget from "./Screens/wheel";
 import ActivityGame from "./Screens/Activity";
+import PaymentApp from "./Screens/HomeComponets/withdrawsection";
 
 require("./Screens/login.css");
 
@@ -160,6 +161,7 @@ function App() {
                   <Route path="Wallet" element={<UserWallet />} />
                   <Route path="History" element={<History />} />
                   <Route path="Profile" element={<Profile />} />
+                  <Route path="Withdraw" element={<PaymentApp />} />
                   <Route path="Refere" element={<Refere />} />
                   <Route path="fastparity" element={<Fastparity />} />
                   {/* <Route path="parity" element={<parity />} /> */}
