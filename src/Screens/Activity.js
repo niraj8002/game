@@ -7,6 +7,10 @@ import {
   ChevronRight,
 } from "lucide-react";
 import bookf from "../assets/bookf.png";
+import a from "../assets/t.webp";
+import b from "../assets/n.webp";
+import c from "../assets/s.webp";
+import d from "../assets/f.webp";
 // Utility to join class names
 function cx(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -182,19 +186,8 @@ const NumberBall = ({ n, selected, onClick }) => {
   );
 };
 
-const Dot = ({ color }) => {
-  return (
-    <span
-      className={cx(
-        "h-2 w-2 rounded-full",
-        color === "emerald"
-          ? "bg-emerald-500"
-          : color === "violet"
-          ? "bg-violet-500"
-          : "bg-rose-500"
-      )}
-    />
-  );
+const Dot = ({ img }) => {
+  return <img src={img} className="w-7"/>;
 };
 
 const ActivityGame = () => {
@@ -203,6 +196,7 @@ const ActivityGame = () => {
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [multiplier, setMultiplier] = useState(1);
   const [sizePick, setSizePick] = useState("big");
+  
   const [tab, setTab] = useState("history");
   const [activeGame, setActiveGame] = useState("30sec");
 
@@ -296,51 +290,96 @@ const ActivityGame = () => {
         </button>
       </div>
 
-    <div className="flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
-  
-  {/* Active Button - WinGo 30 sec */}
-  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-md bg-gradient-to-b from-[#FFD77C] to-[#E6A93A]">
-    <svg className="w-10 h-10 text-yellow-800 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
-    </svg>
-    <span className="text-sm font-medium text-black">WinGo 30sec</span>
-  </div>
+      <div className="flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
+        {/* Active Button - WinGo 30 sec */}
+        <div
+          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-md bg-gradient-to-b from-[#FFD77C] to-[#E6A93A] 
+          cursor-pointer
+          "
+          onClick={() => setActiveGame("WinGo 30sec")}
+        >
+          <svg
+            className="w-10 h-10 text-yellow-800 mb-1"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
+          </svg>
+          <span className="text-[10px] font-medium text-black flex items-center truncate">
+            WinGo 30sec
+          </span>
+        </div>
 
-  {/* Inactive Button - 1 Min */}
-  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]">
-    <svg className="w-10 h-10 text-gray-600 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
-    </svg>
-    <span className="text-sm font-medium text-gray-700">WinGo 1 Min</span>
-  </div>
+        {/* Inactive Button - 1 Min */}
+        <div
+          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
+          onClick={() => setActiveGame(" WinGo 1 Min")}
+        >
+          <svg
+            className="w-10 h-10 text-gray-600 mb-1"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
+          </svg>
+          <span className="text-[10px] font-medium text-black flex items-center truncate">
+            WinGo 1 sec
+          </span>
+        </div>
 
-  {/* Inactive Button - 3 Min */}
-  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]">
-    <svg className="w-10 h-10 text-gray-600 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
-    </svg>
-    <span className="text-sm font-medium text-gray-700">WinGo 3 Min</span>
-  </div>
+        {/* Inactive Button - 3 Min */}
+        <div
+          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
+          onClick={() => setActiveGame(" WinGo 3 Min")}
+        >
+          <svg
+            className="w-10 h-10 text-gray-600 mb-1"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
+          </svg>
+          <span className="text-[10px] font-medium text-black flex items-center truncate">
+            WinGo 3 Min
+          </span>
+        </div>
 
-  {/* Inactive Button - 5 Min */}
-  <div className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]">
-    <svg className="w-10 h-10 text-gray-600 mb-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z"/>
-    </svg>
-    <span className="text-sm font-medium text-gray-700">WinGo 5 Min</span>
-  </div>
-</div>
-
+        {/* Inactive Button - 5 Min */}
+        <div
+          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
+          onClick={() => setActiveGame(" WinGo 5 Min")}
+        >
+          <svg
+            className="w-10 h-10 text-gray-600 mb-1"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
+          </svg>
+          <span className="text-[10px] font-medium text-black flex items-center truncate">
+            WinGo 5 Min
+          </span>
+        </div>
+      </div>
 
       {/* Main Game Area */}
       <div className="mx-4 mt-4 rounded-2xl bg-zinc-800 px-2">
         <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-2xl px-3 py-2 mb-4">
           {/* How to play and Timer */}
           <div className="flex items-center justify-between mb-4 ">
-            <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-1 border-gray-900 mt-1">
-              <img src={bookf} alt="book " className="w-4 h-4" />
-              How to play
-            </button>
+            <div>
+              <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-1 border-gray-900 mt-1">
+                <img src={bookf} alt="book " className="w-4 h-4" />
+                How to play
+              </button>
+              <spnn className="text-yellow-700 font-medium text-[10px] ml-2 tracking-wider">
+                {activeGame}
+              </spnn>
+            </div>
             <div className="text-right">
               <div className="text-xs text-gray-900">Time remaining</div>
               <div className="flex items-center gap-1">
@@ -364,11 +403,11 @@ const ActivityGame = () => {
           {/* Period ID and Dots */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-1">
-              <Dot color="emerald" />
-              <Dot color="violet" />
-              <Dot color="rose" />
-              <Dot color="violet" />
-              <Dot color="rose" />
+              <Dot img={a} />
+              <Dot img={b} />
+              <Dot img={c} />
+              <Dot img={d} />
+              <Dot img={b} />
             </div>
             <span className="text-xs text-zinc-800  px-2 py-1 rounded">
               {periodId}
@@ -453,7 +492,7 @@ const ActivityGame = () => {
       </div>
 
       {/* Tabs */}
-      <div className="mx-4 mt-4 flex gap-2">
+      <div className="mx-4 mt-4 flex gap-2 items-center justify-center">
         <TabButton
           label="Game history"
           active={tab === "history"}
@@ -533,150 +572,157 @@ const ActivityGame = () => {
             </div>
           </div>
         )}
-{tab === "chart" && (
-  <div className="w-full rounded-xl bg-[#1f1f1f] text-gray-200">
-    {/* ---- Statistic Box ---- */}
-    <div className="p-3">
-      <div className="bg-[#2b2b2b] rounded-md overflow-hidden">
-        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs font-semibold border-b border-gray-700">
-          <div className="px-2 py-2">Statistic</div>
-          <div className="col-span-10 px-2 py-2 text-right">(last 100 Periods)</div>
-        </div>
+        {tab === "chart" && (
+          <div className="w-full rounded-xl bg-[#1f1f1f] text-gray-200 overflow-hidden">
+            {/* ---- Statistic Box ---- */}
+            <div className="p-1 overflow-x-auto">
+              <div className="bg-[#2b2b2b] rounded-md overflow-hidden min-w-[700px]">
+                <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs font-semibold border-b border-gray-700">
+                  <div className="px-2 py-2">Statistic</div>
+                  <div className="col-span-10 px-2 py-2 text-right">
+                    (last 100 Periods)
+                  </div>
+                </div>
 
-        {/* Winning Numbers */}
-        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
-          <div className="px-2 py-2">Winning Numbers</div>
-          {[...Array(10)].map((_, i) => (
-            <div key={i} className="flex items-center justify-center">
-              <div className="w-6 h-6 flex items-center justify-center rounded-full border border-red-500 text-red-400">
-                {i}
+                {/* Winning Numbers */}
+                <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+                  <div className="px-2 py-2">Winning Numbers</div>
+                  {[...Array(10)].map((_, i) => (
+                    <div key={i} className="flex items-center justify-center">
+                      <div className="w-6 h-6 flex items-center justify-center rounded-full border border-red-500 text-red-400">
+                        {i}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Missing */}
+                <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+                  <div className="px-2 py-2">Missing</div>
+                  {[46, 10, 15, 4, 8, 2, 1, 24, 12, 0].map((v, i) => (
+                    <div key={i} className="flex items-center justify-center">
+                      {v}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Avg missing */}
+                <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+                  <div className="px-2 py-2">Avg missing</div>
+                  {[10, 10, 5, 6, 10, 7, 6, 8, 11, 9].map((v, i) => (
+                    <div key={i} className="flex items-center justify-center">
+                      {v}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Frequency */}
+                <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
+                  <div className="px-2 py-2">Frequency</div>
+                  {[8, 8, 14, 13, 8, 11, 12, 10, 7, 9].map((v, i) => (
+                    <div key={i} className="flex items-center justify-center">
+                      {v}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Max consecutive */}
+                <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs">
+                  <div className="px-2 py-2">Max consecutive</div>
+                  {[2, 2, 3, 2, 2, 1, 1, 1, 1, 2].map((v, i) => (
+                    <div key={i} className="flex items-center justify-center">
+                      {v}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Missing */}
-        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
-          <div className="px-2 py-2">Missing</div>
-          {[46, 10, 15, 4, 8, 2, 1, 24, 12, 0].map((v, i) => (
-            <div key={i} className="flex items-center justify-center">{v}</div>
-          ))}
-        </div>
+            {/* ---- Table ---- */}
+            <div className="relative overflow-x-auto">
+              <div className="relative min-w-[900px]">
+                {/* Red connector lines */}
+                <svg className="absolute top-0 left-[160px] h-full w-[740px] pointer-events-none">
+                  {[
+                    { win: 1 },
+                    { win: 6 },
+                    { win: 2 },
+                    { win: 3 },
+                    { win: 2 },
+                    { win: 9 },
+                    { win: 4 },
+                    { win: 6 },
+                    { win: 1 },
+                    { win: 9 },
+                  ].map((row, i, arr) =>
+                    i < arr.length - 1 ? (
+                      <line
+                        key={i}
+                        x1={row.win * 40 + 20}
+                        y1={i * 48 + 24}
+                        x2={arr[i + 1].win * 40 + 20}
+                        y2={(i + 1) * 48 + 24}
+                        stroke="red"
+                        strokeWidth="2"
+                      />
+                    ) : null
+                  )}
+                </svg>
 
-        {/* Avg missing */}
-        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
-          <div className="px-2 py-2">Avg missing</div>
-          {[10, 10, 5, 6, 10, 7, 6, 8, 11, 9].map((v, i) => (
-            <div key={i} className="flex items-center justify-center">{v}</div>
-          ))}
-        </div>
-
-        {/* Frequency */}
-        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs border-b border-gray-700">
-          <div className="px-2 py-2">Frequency</div>
-          {[8, 8, 14, 13, 8, 11, 12, 10, 7, 9].map((v, i) => (
-            <div key={i} className="flex items-center justify-center">{v}</div>
-          ))}
-        </div>
-
-        {/* Max consecutive */}
-        <div className="grid grid-cols-[160px_repeat(10,40px)] text-xs">
-          <div className="px-2 py-2">Max consecutive</div>
-          {[2, 2, 3, 2, 2, 1, 1, 1, 1, 2].map((v, i) => (
-            <div key={i} className="flex items-center justify-center">{v}</div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    {/* ---- Table ---- */}
-    <div className="relative">
-      {/* Red connector lines */}
-      <svg className="absolute top-0 left-[160px] h-full w-[400px] pointer-events-none">
-        {[
-          { win: 1 },
-          { win: 6 },
-          { win: 2 },
-          { win: 3 },
-          { win: 2 },
-          { win: 9 },
-          { win: 4 },
-          { win: 6 },
-          { win: 1 },
-          { win: 9 },
-        ].map((row, i, arr) =>
-          i < arr.length - 1 ? (
-            <line
-              key={i}
-              x1={row.win * 40 + 20}
-              y1={i * 48 + 24}
-              x2={arr[i + 1].win * 40 + 20}
-              y2={(i + 1) * 48 + 24}
-              stroke="red"
-              strokeWidth="2"
-            />
-          ) : null
-        )}
-      </svg>
-
-      {/* Rows */}
-      {[
-        { id: "20250831100051896", win: 1, icon: "S" },
-        { id: "20250831100051895", win: 6, icon: "B" },
-        { id: "20250831100051894", win: 2, icon: "S" },
-        { id: "20250831100051893", win: 3, icon: "S" },
-        { id: "20250831100051892", win: 2, icon: "S" },
-        { id: "20250831100051891", win: 9, icon: "B" },
-        { id: "20250831100051890", win: 4, icon: "S" },
-        { id: "20250831100051889", win: 6, icon: "B" },
-        { id: "20250831100051888", win: 1, icon: "S" },
-        { id: "20250831100051887", win: 9, icon: "B" },
-      ].map((row, ri) => (
-        <div
-          key={ri}
-          className="grid grid-cols-[160px_repeat(10,40px)_40px] text-xs border-b border-gray-700"
-        >
-          <div className="px-2 py-3">{row.id}</div>
-          {[...Array(10)].map((_, i) => (
-            <div
-              key={i}
-              className={`flex items-center justify-center ${
-                i === row.win
-                  ? "bg-green-500 text-white rounded-full w-6 h-6 mx-auto"
-                  : "text-gray-400"
-              }`}
-            >
-              {i}
+                {/* Rows */}
+                {[
+                  { id: "20250831100051896", win: 1, icon: "S" },
+                  { id: "20250831100051895", win: 6, icon: "B" },
+                  { id: "20250831100051894", win: 2, icon: "S" },
+                  { id: "20250831100051893", win: 3, icon: "S" },
+                  { id: "20250831100051892", win: 2, icon: "S" },
+                  { id: "20250831100051891", win: 9, icon: "B" },
+                  { id: "20250831100051890", win: 4, icon: "S" },
+                  { id: "20250831100051889", win: 6, icon: "B" },
+                  { id: "20250831100051888", win: 1, icon: "S" },
+                  { id: "20250831100051887", win: 9, icon: "B" },
+                ].map((row, ri) => (
+                  <div
+                    key={ri}
+                    className="grid grid-cols-[160px_repeat(10,40px)_40px] text-xs border-b border-gray-700"
+                  >
+                    <div className="px-2 py-3">{row.id}</div>
+                    {[...Array(10)].map((_, i) => (
+                      <div
+                        key={i}
+                        className={`flex items-center justify-center ${
+                          i === row.win
+                            ? "bg-green-500 text-white rounded-full w-6 h-6 mx-auto"
+                            : "text-gray-400"
+                        }`}
+                      >
+                        {i}
+                      </div>
+                    ))}
+                    <div
+                      className={`px-2 py-3 font-bold text-center ${
+                        row.icon === "S" ? "text-blue-400" : "text-yellow-400"
+                      }`}
+                    >
+                      {row.icon}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-          <div
-            className={`px-2 py-3 font-bold text-center ${
-              row.icon === "S" ? "text-blue-400" : "text-yellow-400"
-            }`}
-          >
-            {row.icon}
+
+            {/* ---- Pagination ---- */}
+            <div className="flex items-center justify-center gap-4 px-4 py-3 border-t border-gray-700 text-sm">
+              <button className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+                ◀
+              </button>
+              <span>1/50</span>
+              <button className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+                ▶
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-
-    {/* ---- Pagination ---- */}
-    <div className="flex items-center justify-center gap-4 px-4 py-3 border-t border-gray-700 text-sm">
-      <button className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
-        ◀
-      </button>
-      <span>1/50</span>
-      <button className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
-        ▶
-      </button>
-    </div>
-  </div>
-)}
-
-
-
-
-
+        )}
 
         {tab === "my" && (
           <div className="space-y-2">
