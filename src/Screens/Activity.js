@@ -196,6 +196,7 @@ const ActivityGame = () => {
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [multiplier, setMultiplier] = useState(1);
   const [sizePick, setSizePick] = useState("big");
+  
   const [tab, setTab] = useState("history");
   const [activeGame, setActiveGame] = useState("30sec");
 
