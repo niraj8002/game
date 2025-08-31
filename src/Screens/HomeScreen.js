@@ -540,7 +540,8 @@ import AnnouncementBar from "./HomeComponets/AnnouncementBar";
 import GameGrid from "./HomeComponets/GameGrid";
 import SlotsSection from "./HomeComponets/SlotsSection";
 import WinningInformation from "./HomeComponets/WinningInformation";
-import EarningsChart from "./HomeComponets/earning";
+import EarningsChart from "./HomeComponets/earingchat";
+import EarningsLeaderboard from "./HomeComponets/earingchat";
 
 const HomeScreen = () => {
   return (
@@ -562,7 +563,7 @@ const HomeScreen = () => {
       {/* Bottom Navigation */}
 
       <WinningInformation />
-      {/* <EarningsChart/> */}
+      <EarningsChart/>
     </div>
   );
 };

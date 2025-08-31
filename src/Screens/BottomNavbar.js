@@ -52,7 +52,7 @@ export default function BottomNavbar() {
                 <div className="absolute bottom-20 -top-30 left-1/2 -translate-x-1/2 z-20 ">
                   <button
                     type="button"
-                    className={`flex items-center w-full gap-2 rounded-full ${GOLD_BG} text-zinc-900 px-4 py-2 shadow-lg border border-amber-300 text-[12px] bg-gradient-to-t from-[#dfc75d] to-[#d9ac4f]`}
+                    className={`flex items-center w-full gap-2 rounded-full ${GOLD_BG} text-zinc-900 px-4 py-2 shadow-lg border border-amber-300 text-[12px] bg-gradient-to-b from-[#e4cb57] to-[#da9b1dd7]`}
                     aria-label="Add to Desktop"
                   >
                     <span className="font-semibold tracking-wide flex justify-center items-center ">
