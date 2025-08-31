@@ -18,7 +18,7 @@ export default function WinningInformation() {
           <h2 className="text-pretty text-lg font-semibold text-amber-300">Winning information</h2>
         </header>
 
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-1">
           {rows.map((r) => (
             <WinningRow key={r.name} name={r.name} amountINR={r.amountINR} avatarQuery={r.avatarQuery} />
           ))}
