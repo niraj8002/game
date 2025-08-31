@@ -1,143 +1,270 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { ChevronLeft, ArrowLeft, RefreshCcw } from "lucide-react";
+import { FaWallet } from "react-icons/fa";
+import cbg from "../../assets/cardbg.webp";
 
 function PaymentApp() {
-  const [selectedChannel, setSelectedChannel] = useState("UPI-APPpay");
-  const [selectedAmount, setSelectedAmount] = useState("");
+  const [selectedAmount, setSelectedAmount] = useState("200");
+  const [customAmount, setCustomAmount] = useState("₹200.00-₹20,000.00");
 
-  const channels = [
-    { name: "UPI-APPpay", balance: "200 - 20K", bonus: "3% bonus" },
-    { name: "Easy/Offpay", balance: "200 - 5K", bonus: "3% bonus" },
-    { name: "Magic-APPpay", balance: "300 - 50K", bonus: "3% bonus" },
-    { name: "YAYai-APPpay", balance: "500 - 50K", bonus: "3% bonus" },
-    { name: "Evel-APPpay", balance: "100 - 50K", bonus: "3% bonus" },
+  const paymentChannels = [
+    { name: "UPS APPay", balance: "200 - 20K", bonus: "3% bonus" },
+    { name: "7Pay-GPay", balance: "200 - 20K", bonus: "3% bonus" },
+    { name: "Easy-GPay", balance: "200 - 5K", bonus: "3% bonus" },
+    { name: "FAST-GPay", balance: "300 - 50K", bonus: "3% bonus" },
+    { name: "Magic-APPay", balance: "300 - 50K", bonus: "3% bonus" },
+    { name: "UM GPay", balance: "100 - 2K", bonus: "3% bonus" },
+    { name: "YaYa AEPay", balance: "500 - 50K", bonus: "3% bonus" },
+    { name: "Qree AEPay", balance: "100 - 50K", bonus: "3% bonus" },
+    { name: "Fast AEPay", balance: "100 - 50K", bonus: "3% bonus" },
   ];
 
-  const amounts = ["200", "500", "1K", "5K", "10K", "20K"];
-
-  const historyItems = [
-    { method: "UPI-APPpay", status: "Dropout", date: "Today, 15:42 PM" },
-  ];
+  const depositAmounts = ["200", "500", "1K", "5K", "10K", "20K"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-5 text-white">
-          <h1 className="text-2xl font-bold text-center">Select Channel</h1>
+    <div className="min-h-screen bg-[#333332] text-white mb-5">
+      {/* Header */}
+      <div className="flex items-center justify-between py-2 px-4">
+        <button
+          onClick={() => window.history.back()}
+          className="cursor-pointer text-gray-400"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <div className="flex items-center  justify-end gap-8 w-full ml-2">
+          <span className="">Deposit</span>
+          <span className="text-[12px]">Deposit history</span>
+        </div>
+        <div></div>
+      </div>
+
+      <div className="p-4 space-y-6">
+        {/* Balance Card */}
+        <div className="relative">
+          <div
+            className="rounded-2xl p-7 text-black shadow-md w-90 bg-cover bg-center"
+            style={{ backgroundImage: `url(${cbg})` }}
+          >
+            {/* Top Row */}
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm opacity-80 flex items-center gap-2">
+                  <FaWallet className="text-yellow-700" /> Balance
+                </p>
+                <p className="text-2xl font-bold flex items-center gap-2">
+                  ₹0.00 <RefreshCcw className="w-4 h-4" />
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Row */}
+          </div>
         </div>
 
-        <div className="p-5">
-          {/* Channel Selection */}
-          <div className="space-y-4 mb-8">
-            {channels.map((channel) => (
-              <div
-                key={channel.name}
-                className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
-                  selectedChannel === channel.name
-                    ? "border-blue-500 border-l-4 bg-blue-50"
-                    : "border-gray-200 hover:bg-gray-50"
-                }`}
-                onClick={() => setSelectedChannel(channel.name)}
-              >
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold text-lg text-gray-800">
-                    {channel.name}
-                  </h3>
-                  {selectedChannel === channel.name && (
-                    <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      Selected
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-600 mt-1">Balance: {channel.balance}</p>
-                <div className="mt-2">
-                  <span className="bg-green-100 text-green-800 text-sm font-medium px-2 py-0.5 rounded">
-                    {channel.bonus}
-                  </span>
-                </div>
+        {/* Payment Methods */}
+        <div className="grid grid-cols-4 gap-1">
+          <div className="relative ">
+            <div className="bg-[#d0811f] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
+              <img
+                src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon2_20240324160846gdbv.png"
+                className="w-[60px] h-[40px] "
+              />
+              <p className="text-[10px]">Wallet UPI app</p>
+            </div>
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center z-20">
+              1
+            </span>
+          </div>
+          <div className="relative">
+            <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
+              <img
+                src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_20240324160932wef3.png"
+                className="w-[40px] h-[40px] "
+              />
+              <p className="text-[10px]">UPI-GPay</p>
+            </div>
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center z-20">
+              1
+            </span>
+          </div>
+          <div className="relative">
+            <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
+              <img
+                src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_20241001160501fwkx.png"
+                className="w-[40px] h-[40px] "
+              />
+              <p className="text-[10px]">UPI PayTM</p>
+            </div>
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center z-20">
+              1
+            </span>
+          </div>
+          <div className="relative">
+            <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
+              <img
+                src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_20240323192848q2ac.png"
+                className="w-[40px] h-[40px] "
+              />
+              <p className="text-[10px]">USTD</p>
+            </div>
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center z-20">
+              1
+            </span>
+          </div>
+          <div className="relative">
+            <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
+              <img
+                src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_202411110010111pjf.png"
+                className="w-[40px] h-[40px] "
+              />
+              <p className="text-[10px]">USTD</p>
+            </div>
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center z-20">
+              1
+            </span>
+          </div>
+        </div>
+
+        {/* AirPay */}
+        <div className="relative">
+          <div className="bg-gray-800 rounded-lg p-4 flex items-center">
+            <div className="w-10 h-10 bg-yellow-500 rounded-lg mr-3"></div>
+            <span className="text-white">AirPay</span>
+          </div>
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            1
+          </span>
+        </div>
+
+        {/* Select Channel */}
+        <div>
+          <div className="flex items-center mb-4">
+            <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
+            <span className="text-yellow-400 font-semibold">
+              Select channel
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {paymentChannels.map((channel, index) => (
+              <div key={index} className="bg-gray-800 rounded-lg p-3">
+                <p className="text-yellow-400 font-semibold text-sm mb-1">
+                  {channel.name}
+                </p>
+                <p className="text-gray-400 text-xs mb-1">
+                  Balance {channel.balance}
+                </p>
+                <p className="text-gray-400 text-xs">{channel.bonus}</p>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Deposit Amount */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+        {/* Deposit Amount */}
+        <div>
+          <div className="flex items-center mb-4">
+            <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
+            <span className="text-yellow-400 font-semibold">
               Deposit amount
-            </h2>
-
-            <div className="grid grid-cols-3 gap-3">
-              {amounts.map((amount) => (
-                <button
-                  key={amount}
-                  className={`py-3 rounded-lg border font-semibold transition-all ${
-                    selectedAmount === amount
-                      ? "bg-blue-500 text-white border-blue-500"
-                      : "bg-white text-blue-500 border-gray-300 hover:bg-blue-50"
-                  }`}
-                  onClick={() => setSelectedAmount(amount)}
-                >
-                  {amount}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-4 p-3 bg-gray-100 rounded-lg">
-              <p className="text-center font-semibold text-gray-700">
-                £200.00 - £20,000.00
-              </p>
-            </div>
+            </span>
           </div>
 
-          <div className="border-t border-gray-200 pt-6 mb-6"></div>
-
-          {/* Recharge Instructions */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold mb-3 text-gray-800">
-              Recharge instructions
-            </h2>
-            <ul className="list-disc pl-5 space-y-2 text-gray-600">
-              <li>
-                If the transfer time is up, please fill out the deposit form
-                again.
-              </li>
-              <li>
-                The transfer amount must match the order you created, otherwise
-                the money cannot be credited successfully.
-              </li>
-              <li>
-                If you transfer the wrong amount, our company will not be
-                responsible for the lost amount.
-              </li>
-              <li>
-                Note: do not cancel the deposit order after the money has been
-                transferred.
-              </li>
-            </ul>
-          </div>
-
-          {/* Deposit History */}
-          <div>
-            <h2 className="text-xl font-bold mb-3 text-gray-800">
-              Deposit history
-            </h2>
-            {historyItems.map((item, index) => (
-              <div
-                key={index}
-                className="bg-red-50 p-4 rounded-lg mb-3 border-l-4 border-red-500"
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            {depositAmounts.map((amount) => (
+              <button
+                key={amount}
+                onClick={() => setSelectedAmount(amount)}
+                className={`p-3 rounded-lg border ${
+                  selectedAmount === amount
+                    ? "border-yellow-400 bg-yellow-400/10 text-yellow-400"
+                    : "border-gray-600 bg-gray-800 text-white"
+                }`}
               >
-                <p className="font-medium">
-                  <span className="text-gray-700">Recharge Method:</span>{" "}
-                  {item.method}
-                </p>
-                <p className="font-medium mt-1">
-                  <span className="text-gray-700">Status:</span>
-                  <span className="text-red-600 ml-1">{item.status}</span>
-                </p>
-                <p className="text-sm text-gray-500 mt-2">{item.date}</p>
-              </div>
+                {amount}
+              </button>
             ))}
           </div>
+
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-400">
+              ₹
+            </span>
+            <input
+              type="text"
+              value={customAmount}
+              onChange={(e) => setCustomAmount(e.target.value)}
+              className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 pl-8 text-white placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        {/* Recharge Instructions */}
+        <div>
+          <div className="flex items-center mb-3">
+            <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
+            <span className="text-yellow-400 font-semibold">
+              Recharge instructions
+            </span>
+          </div>
+
+          <div className="space-y-2 text-gray-300 text-sm">
+            <div className="flex items-start">
+              <span className="text-yellow-400 mr-2">•</span>
+              <span>
+                If the transfer time is up, please fill out the deposit form
+                again
+              </span>
+            </div>
+            <div className="flex items-start">
+              <span className="text-yellow-400 mr-2">•</span>
+              <span>
+                The transfer amount must match the order you created, otherwise
+                the money cannot be credited successfully
+              </span>
+            </div>
+            <div className="flex items-start">
+              <span className="text-yellow-400 mr-2">•</span>
+              <span>
+                If you transfer the wrong amount, our company will not be
+                responsible for the lost amount
+              </span>
+            </div>
+            <div className="flex items-start">
+              <span className="text-yellow-400 mr-2">•</span>
+              <span>
+                Note: do not cancel the deposit order after the money has been
+                transferred
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Deposit History */}
+        <div>
+          <div className="flex items-center mb-4">
+            <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
+            <span className="text-yellow-400 font-semibold">
+              Deposit history
+            </span>
+          </div>
+
+          <div className="bg-gray-800 rounded-lg p-6 text-center">
+            <div className="w-16 h-16 bg-gray-700 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <div className="w-8 h-8 bg-gray-600 rounded"></div>
+            </div>
+            <p className="text-gray-400 mb-4">No data</p>
+            <div className="text-xs text-gray-500 space-y-1">
+              <p>Recharge Method:</p>
+              <p>UPI APPay</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Button */}
+        <div className="pb-8">
+          <button className="w-full bg-yellow-500 text-black font-semibold py-4 rounded-lg">
+            Deposit
+          </button>
         </div>
       </div>
     </div>
