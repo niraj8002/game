@@ -1,5 +1,6 @@
 import React from "react";
 import winn from "../../assets/wii.webp";
+
 function formatINR(amount) {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -7,19 +8,19 @@ function formatINR(amount) {
     minimumFractionDigits: 2,
   }).format(amount);
 }
-// Simple INR formatter using Indian numbering system
+
 export default function WinningRow({
   name,
   amountINR,
-  avatarAlt = "Member avatar",
-  avatarQuery = "avatar profile person",
+  gameImg, // 👈 yeh game image ab parent se milega
+  avatarAlt = "Game image",
 }) {
   return (
     <li className="flex items-center justify-between gap-4 rounded-2xl bg-[#2b2b2b] px-3 py-0 ring-1 ring-white/5">
-      {/* Left: Avatar + Name */}
+      {/* Left: Game Image + Name */}
       <div className="flex items-center gap-1">
         <img
-          src={winn}
+          src={gameImg || winn} // agar gameImg na ho toh fallback
           alt={avatarAlt}
           width={40}
           height={40}
@@ -30,7 +31,6 @@ export default function WinningRow({
         </span>
       </div>
 
-      {/* Right: Golden amount card */}
       {/* Right: Golden amount card */}
       <div
         className="flex items-center gap-3 rounded-xl text-amber-300 pl-0 py-2 mr-3"
