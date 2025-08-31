@@ -576,6 +576,8 @@ import { Link } from "react-router-dom";
 import { message } from "antd"; // Antd message (same jaisa aap use kar rahe ho)
 import axiosInstance from "../axiosInstance";
 import axios from "axios";
+import { FaLock } from "react-icons/fa6";
+import { RiCustomerService2Line } from "react-icons/ri";
 
 const LoginScreen = () => {
   const [tab, setTab] = useState("phone");
@@ -788,6 +790,21 @@ const LoginScreen = () => {
           >
             Register
           </Link>
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center px-4 py-2 mt-9">
+        {/* Forget Password */}
+        <div className="flex flex-col items-center space-x-2">
+          <FaLock className="text-yellow-600 mb-3"  size={25}/>
+          <span className="text-[#ffffff]  text-lg">Forget Password</span>
+        </div>
+
+        {/* Customer Service */}
+        <div className="flex flex-col items-center space-x-2">
+          <RiCustomerService2Line className="text-yellow-600 mb-3"  size={25}/>
+
+          <span className="text-[#ffffff] text-lg">Customer Service</span>
         </div>
       </div>
     </div>

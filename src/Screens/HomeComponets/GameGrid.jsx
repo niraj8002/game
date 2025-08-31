@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const GameGrid = () => {
+const GameGrid = ({onGameClick }) => {
   const games = [
     { title: "Popular", icon: game1, herf: "/Activity" },
     { title: "Lottery", icon: game2, herf: "/Activity" },
@@ -69,7 +69,7 @@ const GameGrid = () => {
             key={index}
             title={game.title}
             icon={game.icon}
-            herf={game.herf}
+            onClick={() => onGameClick(index + 1)}
           />
         ))}
       </div>

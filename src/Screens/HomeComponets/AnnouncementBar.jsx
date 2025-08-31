@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const AnnouncementBar = () => {
   const navigate = useNavigate();
   return (
-    <div className="mx-2 mt-2 bg-gray-800 rounded-xl p-1 flex items-center justify-between px-2 py-2">
+    <div className="mx-2 mt-2 p-1 flex items-center justify-between px-2 py-2">
       <div className="flex items-center space-x-3 flex-1">
         <Volume2 className="w-6 h-6 text-yellow-400 flex-shrink-0" />
         <p className="text-gray-300 text-[10px] leading-tight font-medium tracking-medium">

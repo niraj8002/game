@@ -534,36 +534,53 @@
 // };
 
 // export default HomeScreen;
-import React from "react";
+
+import React, { useRef, useState } from "react";
 import Banner from "./HomeComponets/Banner";
 import AnnouncementBar from "./HomeComponets/AnnouncementBar";
 import GameGrid from "./HomeComponets/GameGrid";
 import SlotsSection from "./HomeComponets/SlotsSection";
 import WinningInformation from "./HomeComponets/WinningInformation";
 import EarningsChart from "./HomeComponets/earingchat";
-import EarningsLeaderboard from "./HomeComponets/earingchat";
 
 const HomeScreen = () => {
+  // 🔹 slots section ke liye ref
+  const slotsRef = useRef(null);
+
+  const [activeSlotView, setActiveSlotView] = useState("default");
+  // 🔹 function jo GameGrid se call hoga
+  const handleGameClick = (id) => {
+    if (slotsRef.current) {
+      slotsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    
+
+// 🔹 Agar 1st index select hua → alag component dikhaye
+    if (id === 2) {
+      setActiveSlotView("special");
+    } else {
+      setActiveSlotView("default");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#333332] text-white pb-20">
-      {/* Header */}
-
       {/* Banner Section */}
       <Banner />
 
       {/* Announcement Bar */}
       <AnnouncementBar />
 
-      {/* Game Cards Grid */}
-      <GameGrid />
+      {/* Game Cards Grid → pass callback */}
+      <GameGrid onGameClick={handleGameClick} />
 
-      {/* Slots Section */}
-      <SlotsSection />
-
-      {/* Bottom Navigation */}
+      {/* Slots Section → ref attach karo */}
+      <div ref={slotsRef}>
+        <SlotsSection activeSlotView={activeSlotView} />
+      </div>
 
       <WinningInformation />
-      <EarningsChart/>
+      <EarningsChart />
     </div>
   );
 };

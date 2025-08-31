@@ -605,6 +605,7 @@ import { FaWallet } from "react-icons/fa6";
 import { HiWallet } from "react-icons/hi2";
 import { FaMoneyCheck } from "react-icons/fa";
 import { RiBankCardFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 /**
  * Mobile Wallet Screen (React + TailwindCSS)
@@ -659,6 +660,7 @@ const UserWallet = () => {
               icon={<FaWallet size={28} />}
               label="Deposit"
               tint="bg-gradient-to-t from-[#d4ae61] to-[#c99220] text-amber-300"
+              to="/Withdraw"
             />
             <Action
               icon={<HiWallet size={28} />}
@@ -712,16 +714,16 @@ function Ring({ percent = 0, label, amount }) {
   );
 }
 
-function Action({ icon, label, tint }) {
+function Action({ icon, label, tint, to }) {
   return (
-    <button className="flex flex-col items-center gap-2 active:scale-95">
+    <Link to={to} className="flex flex-col items-center gap-2 active:scale-95">
       <div className={`h-12 w-12 rounded-2xl grid place-items-center ${tint}`}>
         {icon}
       </div>
       <span className="text-[11px] leading-tight text-center opacity-80 whitespace-pre-line">
         {label}
       </span>
-    </button>
+    </Link>
   );
 }
 
