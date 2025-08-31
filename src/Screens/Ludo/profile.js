@@ -497,7 +497,7 @@ import img2 from "../../assets/top-up.png";
 
 function Badge({ children }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-white/15 px-2 mb-1 py-0.5 text-[10px] font-medium text-white">
+    <span className="inline-flex items-center rounded-full bg-[#dd9138] px-2 mb-1 py-0.5 text-[10px] font-medium text-white">
       {children}
     </span>
   );
