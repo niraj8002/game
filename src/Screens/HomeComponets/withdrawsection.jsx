@@ -64,10 +64,13 @@ function PaymentApp() {
         {/* Payment Methods */}
         <div className="grid grid-cols-4 gap-1">
           <div className="relative ">
-            <div className="bg-[#d0811f] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
+            <div
+              className="bg-gradient-to-l from-[#f7e18f] via-[#e6c15f] to-[#b8860b] 
+ rounded-lg p-1 text-center flex  flex-col justify-center items-center text-yellow-700"
+            >
               <img
                 src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon2_20240324160846gdbv.png"
-                className="w-[60px] h-[40px] "
+                className="w-[60px] h-[40px] mt-1 "
               />
               <p className="text-[10px]">Wallet UPI app</p>
             </div>
@@ -79,7 +82,7 @@ function PaymentApp() {
             <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
               <img
                 src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_20240324160932wef3.png"
-                className="w-[40px] h-[40px] "
+                className="w-[40px] h-[40px] mt-1 "
               />
               <p className="text-[10px]">UPI-GPay</p>
             </div>
@@ -91,7 +94,7 @@ function PaymentApp() {
             <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
               <img
                 src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_20241001160501fwkx.png"
-                className="w-[40px] h-[40px] "
+                className="w-[40px] h-[40px] mt-1 "
               />
               <p className="text-[10px]">UPI PayTM</p>
             </div>
@@ -103,7 +106,7 @@ function PaymentApp() {
             <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
               <img
                 src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_20240323192848q2ac.png"
-                className="w-[40px] h-[40px] "
+                className="w-[40px] h-[40px] mt-1 "
               />
               <p className="text-[10px]">USTD</p>
             </div>
@@ -115,7 +118,7 @@ function PaymentApp() {
             <div className="bg-[#515151] rounded-lg p-1 text-center flex  flex-col justify-center items-center">
               <img
                 src="https://ossimg.bdg123456.com/BDGWin/payNameIcon/payNameIcon_202411110010111pjf.png"
-                className="w-[40px] h-[40px] "
+                className="w-[40px] h-[40px] mt-1 "
               />
               <p className="text-[10px]">USTD</p>
             </div>
