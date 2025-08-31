@@ -39,9 +39,9 @@ const SlotsSection = () => {
       </div>
 
       {/* Add to Desktop notification */}
-      <div className="mt-4 bg-yellow-500 rounded-full px-4 py-2 flex items-center justify-center shadow-md">
+      {/* <div className="mt-4 bg-yellow-500 rounded-full px-4 py-2 flex items-center justify-center shadow-md">
         <span className="text-black font-medium">📱 BDG Add to Desktop</span>
-      </div>
+      </div> */}
     </div>
   );
 };

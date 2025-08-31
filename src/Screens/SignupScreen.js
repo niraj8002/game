@@ -567,6 +567,7 @@ import { Eye, EyeOff, ChevronDown } from "lucide-react";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FcInvite } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const SignupScreen = () => {
   // const [formData, setFormData] =
@@ -606,13 +607,13 @@ const SignupScreen = () => {
         <form className="space-y-5">
           {/* Register your phone */}
           <div>
-            <div className="flex items-center justify-center">
-              <h2 className="flex flex-col items-center justify-center text-[#d9ac4f] text-lg font-medium mb-2">
+            <div className="flex items-center justify-center mb-4">
+              <h2 className="relative flex flex-col items-center justify-center text-[#d9ac4f] text-lg font-medium mb-2">
                 <FaMobileAlt size={23} className="mb-3" />
                 Register your phone
+                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-full h-[2px] bg-[#d9ac4f]"></span>
               </h2>
             </div>
-            <hr className=" mb-5"/> 
 
             {/* Phone Number */}
             <div className="space-y-1 mb-4">
@@ -634,7 +635,7 @@ const SignupScreen = () => {
                     <option value="+86">+86</option>
                   </select>
                   <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none pl-2" />
-                   <div className="h-6 right-0  absolute bottom-4 border-r border-gray-500 flex"></div>
+                  <div className="h-6 right-0  absolute bottom-4 border-r border-gray-500 flex"></div>
                 </div>
                 <input
                   type="tel"
@@ -710,7 +711,7 @@ const SignupScreen = () => {
 
             {/* Invite Code */}
             <div className="space-y-1 mb-6">
-              <label className="flex item-center gap-3 text-[#d9ac4f] text-md font-medium flex items-center">
+              <label className="flex item-center gap-3 text-[#d9ac4f] text-md font-medium  items-center">
                 <FcInvite />
                 Invite code
               </label>
@@ -752,20 +753,20 @@ const SignupScreen = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full bg-[#d9ac4f] hover:bg-yellow-600 text-black font-semibold py-3 rounded-xl transition-colors duration-200 mb-4"
+            className="text-[#4f3a05] w-full text-center py-2 rounded-2xl font-medium text-md hover:bg-yellow-400 transition-colors tracking-wider bg-gradient-to-r from-[#dcc68b] to-[#bd9632]"
           >
             Register
           </button>
 
           {/* Login Link */}
-          <div className="text-center">
+          <div className="text-center mb-5 border border-1 border-[#82600a] rounded-2xl py-2">
             <span className="text-gray-400 text-sm">I have an account. </span>
-            <a
-              href="/LoginScreen"
-              className="text-white text-sm font-medium hover:text-[#d9ac4f] transition-colors"
+            <Link
+              to="/LoginScreen"
+              className="text-sm font-medium hover:text-[#d9ac4f] transition-colors text-[#d9ac4f]"
             >
               Login
-            </a>
+            </Link>
           </div>
         </form>
       </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { Bell, Download, Mail } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import logo from "../assets/logo.png"; // assuming the logo path is correct
+import logo from "../assets/logo.png";
+import usa from "../assets/usa.webp";
 import { MdOutlineArrowBackIosNew } from "react-icons/md"; // You can replace this with an arrow icon if needed
 
 const Header = () => {
@@ -9,6 +10,7 @@ const Header = () => {
   const currentPath = location.pathname;
   const HideNavbar = ["/Profile", "/Wallet"].includes(currentPath);
   const HideBackBtn = ["/"].includes(currentPath);
+  const HideNav = ["/LoginScreen", "/SignupScreen"].includes(currentPath);
 
   return (
     !HideNavbar && (
@@ -29,13 +31,21 @@ const Header = () => {
         </div>
 
         {/* Right side icons */}
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Mail className="w-6 h-6 text-[#d9ac4f]" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+        {HideNav ? (
+          <div className="flex items-center gap-2">
+            <img src={usa} alt="use" className="w-6 h-6" />
+            <span className="text-[#d9ac4f]">EN</span>
           </div>
-          <Download className="w-6 h-6 text-[#d9ac4f]" />
-        </div>
+        ) : (
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <Mail className="w-6 h-6 text-[#d9ac4f]" />
+
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+            </div>
+            <Download className="w-6 h-6 text-[#d9ac4f]" />
+          </div>
+        )}
       </header>
     )
   );
