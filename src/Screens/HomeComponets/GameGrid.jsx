@@ -18,34 +18,69 @@ import {
   Fish,
   Sparkles,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const GameGrid = () => {
   const games = [
-    { title: "Popular", icon: game1 },
-    { title: "Lottery", icon: game2 },
-    { title: "Slots", icon: game3 },
+    { title: "Popular", icon: game1, herf: "/Activity" },
+    { title: "Lottery", icon: game2, herf: "/Activity" },
+    { title: "Slots", icon: game3, herf: "/Activity" },
   ];
   const games2 = [
-    { title: "Sports", icon: game4, iconColor: "text-blue-600" },
-    { title: "Casino", icon: game5, iconColor: "text-green-600" },
-    { title: "Rummy", icon: game6, iconColor: "text-pink-600" },
+    {
+      title: "Sports",
+      icon: game4,
+      iconColor: "text-blue-600",
+      herf: "/Activity",
+    },
+    {
+      title: "Casino",
+      icon: game5,
+      iconColor: "text-green-600",
+      herf: "/Activity",
+    },
+    {
+      title: "Rummy",
+      icon: game6,
+      iconColor: "text-pink-600",
+      herf: "/Activity",
+    },
   ];
   const games3 = [
-    { title: "Fishing", icon: game7, iconColor: "text-cyan-600" },
-    { title: "Original", icon: game8, iconColor: "text-orange-600" },
+    {
+      title: "Fishing",
+      icon: game7,
+      iconColor: "text-cyan-600",
+      herf: "/Activity",
+    },
+    {
+      title: "Original",
+      icon: game8,
+      iconColor: "text-orange-600",
+      herf: "/Activity",
+    },
   ];
 
   return (
     <div className="mx-2 mt-3">
       <div className="grid grid-cols-3 gap-3">
-        {games.map((game, index) => (
-          <GameCard key={index} title={game.title} icon={game.icon} />
+        {games.map((game, index, herf) => (
+          <GameCard
+            key={index}
+            title={game.title}
+            icon={game.icon}
+            herf={game.herf}
+          />
         ))}
       </div>
       <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer p-2 mt-3">
         <div className="grid grid-cols-3 divide-x divide-yellow-300">
           {games2.map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center">
+            <Link
+              to={item.herf}
+              key={idx}
+              className="flex flex-col items-center"
+            >
               <img
                 src={item.icon}
                 alt={item.title}
@@ -54,7 +89,7 @@ const GameGrid = () => {
               <span className="text-black font-semibold text-sm">
                 {item.title}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -62,7 +97,10 @@ const GameGrid = () => {
         {games3.map((item, idx) => {
           return (
             <>
-              <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-xl p-4 flex flex-col items-center justify-center h-24 shadow-lg hover:shadow-xl transition-shadow cursor-pointer relative">
+              <Link
+                to={item.herf}
+                className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-xl p-4 flex flex-col items-center justify-center h-24 shadow-lg hover:shadow-xl transition-shadow cursor-pointer relative"
+              >
                 <div className="absulate top-0">
                   <img
                     src={item.icon}
@@ -73,7 +111,7 @@ const GameGrid = () => {
                 <span className="text-black font-semibold text-sm text-start">
                   {item.title}
                 </span>
-              </div>
+              </Link>
             </>
           );
         })}
