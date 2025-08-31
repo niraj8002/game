@@ -11,6 +11,17 @@ import a from "../assets/t.webp";
 import b from "../assets/n.webp";
 import c from "../assets/s.webp";
 import d from "../assets/f.webp";
+import e from "../assets/ss.webp";
+import f from "../assets/sss.webp";
+import g from "../assets/f.webp";
+import o from "../assets/o.webp";
+import tw from "../assets/tw.webp";
+import two from "../assets/two.webp";
+import one from "../assets/one.webp";
+import four from "../assets/four.webp";
+import ettt from "../assets/ettt.webp";
+import niii from "../assets/niii.webp";
+import AnnouncementBar from "./HomeComponets/AnnouncementBar";
 // Utility to join class names
 function cx(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -125,69 +136,44 @@ const Chip = ({ label, active, intent = "muted", onClick }) => {
   );
 };
 
+// import g from "../assets/f.webp";
+// import o from "../assets/o.webp";
+// import tw from "../assets/tw.webp";
+// import four from "../assets/four.webp";
+// import ettt from "../assets/ettt.webp";
+// import niii from "../assets/niii.webp";
+
 const NumberBall = ({ n, selected, onClick }) => {
-  const colorForNumber = (num) => {
-    const map = {
-      0: "red",
-      1: "green",
-      2: "red",
-      3: "green",
-      4: "red",
-      5: "violet",
-      6: "red",
-      7: "green",
-      8: "red",
-      9: "green",
-    };
-    return map[num] || "red";
+  const images = {
+    0: o,
+    1: one,
+    2: two,
+    3: a,
+    4: four,
+    5: g,
+    6: f,
+    7: e,
+    8: ettt,
+    9: niii,
   };
 
-  const color = colorForNumber(n);
-  const ringColor =
-    color === "green"
-      ? "ring-emerald-500"
-      : color === "violet"
-      ? "ring-violet-500"
-      : "ring-red-500";
-
-  const ballGradient =
-    color === "green"
-      ? "from-emerald-300 to-emerald-400"
-      : color === "violet"
-      ? "from-violet-300 to-violet-400"
-      : "from-red-300 to-red-400";
-
   return (
-    <button
+    <div
       onClick={onClick}
-      className={cx(
-        "relative aspect-square w-full rounded-full",
-        "bg-gradient-to-b from-white to-gray-100",
-        "shadow-[0_3px_8px_rgba(0,0,0,0.3)]",
-        "ring-4",
-        ringColor,
-        selected ? "scale-95" : "hover:scale-105",
-        "transition-transform duration-150"
-      )}
+      className={`w-14 h-14 flex items-center justify-center rounded-full cursor-pointer transition 
+         `}
     >
-      <div
-        className={cx(
-          "absolute inset-1 rounded-full bg-gradient-to-b",
-          ballGradient,
-          "shadow-inner"
-        )}
-      >
-        <span className="absolute inset-0 grid place-items-center text-xl font-black text-white drop-shadow-sm">
-          {n}
-        </span>
-        <span className="pointer-events-none absolute left-1/2 top-1 h-2 w-6 -translate-x-1/2 rounded-full bg-white/60 blur-sm" />
-      </div>
-    </button>
+      <img
+        src={images[n]}
+        alt={`num-${n}`}
+        className="w-12 h-12 object-contain"
+      />
+    </div>
   );
 };
 
 const Dot = ({ img }) => {
-  return <img src={img} className="w-7"/>;
+  return <img src={img} className="w-7" />;
 };
 
 const ActivityGame = () => {
@@ -196,9 +182,10 @@ const ActivityGame = () => {
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [multiplier, setMultiplier] = useState(1);
   const [sizePick, setSizePick] = useState("big");
-  
+
   const [tab, setTab] = useState("history");
-  const [activeGame, setActiveGame] = useState("30sec");
+  const [activeGame, setActiveGame] = useState("WinGo 30sec");
+  console.log(activeGame);
 
   // Timer state - starts at 13 seconds to match screenshot
   const [seconds, setSeconds] = useState(13);
@@ -283,87 +270,39 @@ const ActivityGame = () => {
       </div>
 
       {/* Sound and Detail */}
-      <div className="flex items-center justify-between px-4 mt-3">
-        <Volume2 className="h-5 w-5 text-[#e0be72]  " />
-        <button className="bg-gradient-to-b from-[#e0be72] to-[#d1a84e] hover:from-yellow-500 text-zinc-900 px-4 py-2 rounded-xl text-sm font-semibold">
-          Detail
-        </button>
+      <div className="px-2">
+        <AnnouncementBar />
       </div>
 
-      <div className="flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
-        {/* Active Button - WinGo 30 sec */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-md bg-gradient-to-b from-[#FFD77C] to-[#E6A93A] 
-          cursor-pointer
-          "
-          onClick={() => setActiveGame("WinGo 30sec")}
-        >
-          <svg
-            className="w-10 h-10 text-yellow-800 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 30sec
-          </span>
-        </div>
-
-        {/* Inactive Button - 1 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 1 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 1 sec
-          </span>
-        </div>
-
-        {/* Inactive Button - 3 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 3 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 3 Min
-          </span>
-        </div>
-
-        {/* Inactive Button - 5 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 5 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 5 Min
-          </span>
-        </div>
+      <div className="flex items-center justify-center gap-1 px-3 py-1 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
+        {["WinGo 30sec", "WinGo 1 Min", "WinGo 3 Min", "WinGo 5 Min"].map(
+          (game) => (
+            <div
+              key={game}
+              className={`flex flex-col items-center justify-center w-24 h-20 rounded-xl shadow-md cursor-pointer
+        ${
+          activeGame === game
+            ? "bg-gradient-to-b from-[#e0be72] to-[#d1a84e]"
+            : "bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]"
+        }`}
+              onClick={() => setActiveGame(game)}
+            >
+              <svg
+                className={`w-10 h-10 mb-1 ${
+                  activeGame === game ? "text-yellow-800" : "text-gray-600"
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
+              </svg>
+              <span className="text-[10px] font-medium text-black flex items-center truncate">
+                {game}
+              </span>
+            </div>
+          )
+        )}
       </div>
 
       {/* Main Game Area */}
@@ -409,7 +348,7 @@ const ActivityGame = () => {
               <Dot img={d} />
               <Dot img={b} />
             </div>
-            <span className="text-xs text-zinc-800  px-2 py-1 rounded">
+            <span className="text-[10px] text-zinc-800   py-1 rounded">
               {periodId}
             </span>
           </div>
