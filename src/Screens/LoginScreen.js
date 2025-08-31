@@ -568,6 +568,7 @@
 // };
 
 // export default LoginScreen;
+
 import React, { useState } from "react";
 import { Phone, Lock, Mail, ChevronDown, EyeOff, Eye } from "lucide-react";
 import { FaMobileAlt } from "react-icons/fa";
@@ -575,8 +576,6 @@ import { Link } from "react-router-dom";
 import { message } from "antd"; // Antd message (same jaisa aap use kar rahe ho)
 import axiosInstance from "../axiosInstance";
 import axios from "axios";
-
-
 
 const LoginScreen = () => {
   const [tab, setTab] = useState("phone");
@@ -619,9 +618,9 @@ const LoginScreen = () => {
   return (
     <div className="min-h-screen bg-[#1f1f1f] text-white flex flex-col p-4 font-sans">
       {/* Heading */}
-      <div className="mb-6">
+      <div className="mb-3">
         <h2 className="text-xl font-bold text-gray-200">Log in</h2>
-        <p className="text-gray-400 text-sm mt-1 leading-relaxed">
+        <p className="text-gray-400 text-[10px] mt-1 leading-relaxed">
           Please log in with your phone number or email
           <br />
           If you forget your password, please contact customer service
@@ -763,13 +762,14 @@ const LoginScreen = () => {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col px-5 gap-4 mt-8">
+        {/* Buttons */}
+        <div className="flex flex-col gap-4 mt-8 w-full">
           <button
             onClick={onSignin}
-            className={`py-3 rounded-2xl font-medium text-md transition-all ${
+            className={`w-full py-2 rounded-2xl font-medium text-md transition-all ${
               (tab === "phone" && phoneNumber && password) ||
               (tab === "email" && email && password)
-                ? "bg-yellow-400 text-black hover:bg-yellow-500"
+                ? "bg-[#d9ac4f] text-black hover:bg-yellow-500"
                 : "bg-gray-700 text-gray-500 cursor-not-allowed"
             }`}
             disabled={
@@ -784,7 +784,7 @@ const LoginScreen = () => {
 
           <Link
             to={"/SignupScreen"}
-            className="relative border border-yellow-400 text-yellow-400 py-3 rounded-2xl font-medium text-md flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-colors tracking-wider"
+            className="w-full text-center border border-yellow-400  py-2 rounded-2xl font-medium text-md  bg-gradient-to-r from-[#e6c567] to-[#b8860b]  text-black transition-colors tracking-wider"
           >
             Register
           </Link>

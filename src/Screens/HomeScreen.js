@@ -539,6 +539,8 @@ import Banner from "./HomeComponets/Banner";
 import AnnouncementBar from "./HomeComponets/AnnouncementBar";
 import GameGrid from "./HomeComponets/GameGrid";
 import SlotsSection from "./HomeComponets/SlotsSection";
+import WinningInformation from "./HomeComponets/WinningInformation";
+import EarningsChart from "./HomeComponets/earning";
 
 const HomeScreen = () => {
   return (
@@ -558,6 +560,9 @@ const HomeScreen = () => {
       <SlotsSection />
 
       {/* Bottom Navigation */}
+
+      <WinningInformation />
+      {/* <EarningsChart/> */}
     </div>
   );
 };
