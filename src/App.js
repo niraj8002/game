@@ -5,6 +5,7 @@ import {
   BrowserRouter,
   Routes,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import { Layout, ConfigProvider } from "antd";
 import enUS from "antd/lib/locale-provider/en_US";
@@ -52,11 +53,12 @@ function App() {
       const myDecodedToken = decodeToken(
         JSON.parse(localStorage.getItem("authtoken"))
       );
-      if (myDecodedToken.role === undefined) {
+      if (myDecodedToken?.role === undefined) {
         myDecodedToken.role = "test";
       }
       setAuthToken(myDecodedToken);
       setWaitstate(false);
+
       localStorage.setItem(
         "username",
         JSON.parse(localStorage.getItem("authtoken")).name
@@ -74,13 +76,26 @@ function App() {
   );
 }
 
+// 🔹 Protected Route Wrapper
+function ProtectedRoute({ authToken, children }) {
+  if (!authToken) {
+    return <Navigate to="/LoginScreen" replace />;
+  }
+  return children;
+}
+
+// 🔹 Redirect if already logged in
+function AuthRedirect({ authToken, children }) {
+  if (authToken) {
+    return <Navigate to="/HomeScreen" replace />;
+  }
+  return children;
+}
+
 function MainApp({ waitstate, authToken }) {
   const location = useLocation();
 
-  // 👇 Routes where BottomNavbar should NOT appear
   const hideNavbarRoutes = ["/LoginScreen", "/SignupScreen"];
-
-  // Check current route
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -124,38 +139,216 @@ function MainApp({ waitstate, authToken }) {
             <ConfigProvider locale={enUS}>
               <Header />
               <Routes>
-                <Route path="/" element={<HomeScreen />} />
-                <Route path="LoginScreen" element={<LoginScreen />} />
+                {/* 🔹 Public Routes */}
+                <Route
+                  path="LoginScreen"
+                  element={
+                    <AuthRedirect authToken={authToken}>
+                      <LoginScreen />
+                    </AuthRedirect>
+                  }
+                />
                 <Route
                   path="SignupScreen"
                   element={<SignupScreen authToken={authToken} />}
                 />
-                <Route path="HomeScreen" element={<HomeScreen />} />
-                <Route path="RoleScreen" element={<RoleScreen />} />
-                <Route path="Wallet" element={<UserWallet />} />
-                <Route path="History" element={<History />} />
-                <Route path="Profile" element={<Profile />} />
-                <Route path="Withdraw" element={<PaymentApp />} />
-                <Route path="Refere" element={<Refere />} />
-                <Route path="fastparity" element={<Fastparity />} />
-                <Route path="parity" element={<Parity />} />
-                <Route path="dice" element={<Dice />} />
-                <Route path="jet" element={<JetX />} />
-                <Route path="order" element={<Order />} />
-                <Route path="Record" element={<Record />} />
-                <Route path="Recharge" element={<Recharge />} />
-                <Route path="Withdraw" element={<Withdraw />} />
-                <Route path="Guide" element={<Guide />} />
-                <Route path="terms" element={<Terms />} />
-                <Route path="ARecharge" element={<RechargeAdmin />} />
-                <Route path="AWithdraw" element={<WithdrawAdmin />} />
-                <Route path="Support" element={<Support />} />
-                <Route path="UserRole" element={<UserRoleScreen />} />
-                <Route path="Activity" element={<ActivityGame />} />
-                <Route path="Notification" element={<Notifiction />} />
+
+                {/* 🔹 Protected Routes */}
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <HomeScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="HomeScreen"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <HomeScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="RoleScreen"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <RoleScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Wallet"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <UserWallet />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="History"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <History />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Profile"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Withdraw"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <PaymentApp />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Refere"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Refere />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="fastparity"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Fastparity />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="parity"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Parity />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="dice"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Dice />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="jet"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <JetX />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="order"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Order />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Record"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Record />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Recharge"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Recharge />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Withdraw"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Withdraw />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Guide"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Guide />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="terms"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Terms />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="ARecharge"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <RechargeAdmin />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="AWithdraw"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <WithdrawAdmin />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Support"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Support />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="UserRole"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <UserRoleScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Activity"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <ActivityGame />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="Notification"
+                  element={
+                    <ProtectedRoute authToken={authToken}>
+                      <Notifiction />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
 
-              {/* ✅ Show BottomNavbar only when not on login/signup */}
+              {/* ✅ Navbar only if not on login/signup */}
               {shouldShowNavbar && <BottomNavbar />}
 
               <WheelWidget />

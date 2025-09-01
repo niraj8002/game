@@ -561,38 +561,77 @@
 // };
 
 // export default SignupScreen;
-
 import React, { useState } from "react";
 import { Eye, EyeOff, ChevronDown } from "lucide-react";
-import { FaMobileAlt } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+import { FaMobileAlt, FaLock } from "react-icons/fa";
 import { FcInvite } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignupScreen = () => {
-  // const [formData, setFormData] =
+  const navigate = useNavigate();
 
-  //   FormData >
-  //   {
-  //     countryCode: "+91",
-  //     phoneNumber: "",
-  //     password: "",
-  //     confirmPassword: "",
-  //     inviteCode: "",
-  //     agreeToPrivacy: false,
-  //   };
+  const [formData, setFormData] = useState({
+    countryCode: "+91",
+    mobile: "",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    inviteCode: "",
+    agreeToPrivacy: false,
+  });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // const handleInputChange = (FormData, value) => {
-  //   setFormData((prev) => ({ ...prev }));
-  // };
+  // handle input
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Registration data:", formData);
-  // };
+  // submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.mobile || !formData.password || !formData.name || !formData.email) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    if (!formData.agreeToPrivacy) {
+      alert("You must agree to the Privacy Statement.");
+      return;
+    }
+
+    try {
+      const payload = {
+        mobile: formData.mobile,
+        password: formData.password,
+        name: formData.name,
+        email: formData.email,
+      };
+
+      const res = await axios.post("http://localhost:6001/member", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.data.responseCode === 1) {
+        alert("Registration successful! Please login.");
+        navigate("/LoginScreen");
+      } else {
+        alert(res.data.responseMessage || "Registration failed.");
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      alert("Something went wrong. Try again later.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
@@ -600,151 +639,139 @@ const SignupScreen = () => {
         <div className="text-start mb-8">
           <h1 className="text-white text-2xl font-semibold mb-2">Register</h1>
           <p className="text-gray-400 text-sm">
-            Please register for phone number or email
+            Please register with your phone number or email
           </p>
         </div>
 
-        <form className="space-y-5">
-          {/* Register your phone */}
-          <div>
-            <div className="flex items-center justify-center mb-4">
-              <h2 className="relative flex flex-col items-center justify-center text-[#d9ac4f] text-lg font-medium mb-2">
-                <FaMobileAlt size={23} className="mb-3" />
-                Register your phone
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-full h-[2px] bg-[#d9ac4f]"></span>
-              </h2>
-            </div>
-
-            {/* Phone Number */}
-            <div className="space-y-1 mb-4">
-              <label className="flex items-center gap-3 text-[#d9ac4f] text-md font-medium">
-                <FaMobileAlt /> Phone number
-              </label>
-              <div className="flex">
-                <div className="relative">
-                  <select
-                    // value={formData.countryCode}
-                    // onChange={(e) =>
-                    //   handleInputChange("countryCode", e.target.value)
-                    // }
-                    className="bg-gray-800 relative  text-gray-300 px-3 py-3 rounded-l-lg focus:outline-none focus:border-[#d9ac4f] appearance-none pr-8"
-                  >
-                    <option value="+91">+91</option>
-                    <option value="+1">+1</option>
-                    <option value="+44">+44</option>
-                    <option value="+86">+86</option>
-                  </select>
-                  <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none pl-2" />
-                  <div className="h-6 right-0  absolute bottom-4 border-r border-gray-500 flex"></div>
-                </div>
-                <input
-                  type="tel"
-                  placeholder="Please enter the phone number"
-                  // value={formData.phoneNumber}
-                  // onChange={(e) =>
-                  //   handleInputChange("phoneNumber", e.target.value)
-                  // }
-                  className="flex-1 bg-gray-800 text-gray-300 px-4 py-3 rounded-r-xl focus:outline-none focus:border-[#d9ac4f] placeholder-gray-500 placeholder:text-[13px]"
-                />
-              </div>
-            </div>
-
-            {/* Set Password */}
-            <div className="space-y-1 mb-4">
-              <label className="flex item-center gap-3 text-[#d9ac4f] text-md font-medium  items-center">
-                <FaLock />
-                Set password
-              </label>
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          {/* Phone Number */}
+          <div className="space-y-1 mb-4">
+            <label className="flex items-center gap-3 text-[#d9ac4f] text-md font-medium">
+              <FaMobileAlt /> Phone number
+            </label>
+            <div className="flex">
               <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Set password"
-                  // value={formData.password}
-                  // onChange={(e) =>
-                  //   handleInputChange("password", e.target.value)
-                  // }
-                  className="w-full bg-gray-800  text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#d9ac4f] placeholder-gray-500 pr-12 placeholder:text-[13px]"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                <select
+                  value={formData.countryCode}
+                  onChange={(e) => handleInputChange("countryCode", e.target.value)}
+                  className="bg-gray-800 text-gray-300 px-3 py-3 rounded-l-lg focus:outline-none appearance-none pr-8"
                 >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+86">+86</option>
+                </select>
+                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               </div>
-            </div>
-
-            {/* Confirm Password */}
-            <div className="space-y-1 mb-4">
-              <label className="flex item-center gap-3 text-[#d9ac4f] text-md font-medium flex items-center">
-                <FaLock />
-                Confirm password
-              </label>
-              <div className="relative">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm password"
-                  // value={formData.confirmPassword}
-                  // onChange={(e) =>
-                  //   handleInputChange("confirmPassword", e.target.value)
-                  // }
-                  className="w-full bg-gray-800 0 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#d9ac4f] placeholder-gray-500 pr-12 placeholder:text-[13px]"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Invite Code */}
-            <div className="space-y-1 mb-6">
-              <label className="flex item-center gap-3 text-[#d9ac4f] text-md font-medium  items-center">
-                <FcInvite />
-                Invite code
-              </label>
               <input
-                type="text"
-                placeholder="Please enter the invitation code"
-                // value={formData.inviteCode}
-                // onChange={(e) =>
-                //   handleInputChange("inviteCode", e.target.value)
-                // }
-                className="w-full bg-gray-800  text-white px-4 py-3 rounded-xl focus:outline-none focus:border-[#d9ac4f] placeholder-gray-500  placeholder:text-[13px]"
+                type="tel"
+                placeholder="Enter phone number"
+                value={formData.mobile}
+                onChange={(e) => handleInputChange("mobile", e.target.value)}
+                className="flex-1 bg-gray-800 text-gray-300 px-4 py-3 rounded-r-xl focus:outline-none placeholder-gray-500 placeholder:text-[13px]"
               />
             </div>
           </div>
 
+          {/* Name */}
+          <div className="space-y-1 mb-4">
+            <label className="text-[#d9ac4f] text-md font-medium">Name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={(e) => handleInputChange("name", e.target.value)}
+              className="w-full bg-gray-800 text-white px-4 py-3 rounded-xl focus:outline-none placeholder-gray-500"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="space-y-1 mb-4">
+            <label className="text-[#d9ac4f] text-md font-medium">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              className="w-full bg-gray-800 text-white px-4 py-3 rounded-xl focus:outline-none placeholder-gray-500"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="space-y-1 mb-4">
+            <label className="flex items-center gap-3 text-[#d9ac4f] text-md font-medium">
+              <FaLock />
+              Set password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Set password"
+                value={formData.password}
+                onChange={(e) => handleInputChange("password", e.target.value)}
+                className="w-full bg-gray-800 text-white px-4 py-3 rounded-xl focus:outline-none pr-12 placeholder-gray-500"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Confirm Password */}
+          <div className="space-y-1 mb-4">
+            <label className="flex items-center gap-3 text-[#d9ac4f] text-md font-medium">
+              <FaLock />
+              Confirm password
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm password"
+                value={formData.confirmPassword}
+                onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+                className="w-full bg-gray-800 text-white px-4 py-3 rounded-xl focus:outline-none pr-12 placeholder-gray-500"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              >
+                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Invite Code (optional) */}
+          <div className="space-y-1 mb-6">
+            <label className="flex items-center gap-3 text-[#d9ac4f] text-md font-medium">
+              <FcInvite />
+              Invite code
+            </label>
+            <input
+              type="text"
+              placeholder="Enter invitation code (optional)"
+              value={formData.inviteCode}
+              onChange={(e) => handleInputChange("inviteCode", e.target.value)}
+              className="w-full bg-gray-800 text-white px-4 py-3 rounded-xl focus:outline-none placeholder-gray-500"
+            />
+          </div>
+
           {/* Privacy Agreement */}
           <div className="flex items-start space-x-3 mb-6">
-            <div className="flex-shrink-0 mt-0.5 rounded-full">
-              <input
-                type="checkbox"
-                id="privacy"
-                className="w-4 h-4 appearance-none rounded-full border border-gray-600 bg-gray-800 checked:bg-[#d9ac4f] checked:border-[#d9ac4f] cursor-pointer"
-              />
-            </div>
-            <label
-              htmlFor="privacy"
-              className="text-gray-400 text-sm leading-relaxed"
-            >
-              I have read and agree.{" "}
-              <a
-                href="#"
-                className="text-[#d9ac4f] underline hover:text-yellow-400 transition-colors"
-              >
+            <input
+              type="checkbox"
+              id="privacy"
+              checked={formData.agreeToPrivacy}
+              onChange={(e) => handleInputChange("agreeToPrivacy", e.target.checked)}
+              className="w-4 h-4 rounded border-gray-600 bg-gray-800 checked:bg-[#d9ac4f] cursor-pointer"
+            />
+            <label htmlFor="privacy" className="text-gray-400 text-sm leading-relaxed">
+              I have read and agree to the{" "}
+              <a href="#" className="text-[#d9ac4f] underline">
                 Privacy Statement
               </a>
             </label>
@@ -753,18 +780,15 @@ const SignupScreen = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="text-[#4f3a05] w-full text-center py-2 rounded-2xl font-medium text-md hover:bg-yellow-400 transition-colors tracking-wider bg-gradient-to-r from-[#dcc68b] to-[#bd9632]"
+            className="text-[#4f3a05] w-full text-center py-2 rounded-2xl font-medium text-md bg-gradient-to-r from-[#dcc68b] to-[#bd9632] hover:bg-yellow-400"
           >
             Register
           </button>
 
           {/* Login Link */}
-          <div className="text-center mb-5 border border-1 border-[#82600a] rounded-2xl py-2">
-            <span className="text-gray-400 text-sm">I have an account. </span>
-            <Link
-              to="/LoginScreen"
-              className="text-sm font-medium hover:text-[#d9ac4f] transition-colors text-[#d9ac4f]"
-            >
+          <div className="text-center mt-4 border border-[#82600a] rounded-2xl py-2">
+            <span className="text-gray-400 text-sm">Already have an account? </span>
+            <Link to="/LoginScreen" className="text-sm font-medium text-[#d9ac4f] hover:text-yellow-400">
               Login
             </Link>
           </div>
