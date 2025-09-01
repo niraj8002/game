@@ -3,16 +3,17 @@ import img1 from "../../assets/lttboll.png";
 import img2 from "../../assets/lttmoto.png";
 import img3 from "../../assets/lttdis.png";
 import img4 from "../../assets/lttbb.png";
+import { Link } from "react-router-dom";
 
 // Single card component
-const LotteryCard = ({ title, description, image }) => {
+const LotteryCard = ({ title, description, image ,herf }) => {
   return (
     <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-black rounded-xl  flex items-center justify-between shadow-md hover:scale-[1.02] transition-transform duration-200">
-      <div className="px-2">
+      <Link to={herf} className="px-2">
         <h3 className="font-bold text-md">{title}</h3>
         {/* Display multi-line description correctly */}
-        <p className="text-sm font-medium truncate" >{description}</p>
-      </div>
+        <p className="text-sm font-medium truncate text-gray-600" >{description}</p>
+      </Link>
       <img src={image} alt={title} className="w-20  object-cover" />
     </div>
   );
@@ -31,6 +32,7 @@ function LotteryApp() {
           title="Win Go"
           description={"Guess Number\nGreen/Red/Violet to win"}
           image={img1}
+          herf={"/Activity"}
         />
         <LotteryCard
           title="MotoRace"
