@@ -4,7 +4,7 @@ import wheel from "../assets/wheel.png";
 const WheelWidget = () => {
   return (
     <div
-      className="fixed bottom-40 right-4 cursor-pointer z-50"
+      className="fixed bottom-40 right-4 cursor-pointer z-30"
     >
       <div className="w-16 h-16 rounded-full overflow-hidden drop-shadow-lg">
         <img
