@@ -25,7 +25,9 @@ import bettingBanner from "../assets/bettingBanner.webp";
 import actiBanner from "../assets/activityBanner.webp";
 import AnnouncementBar from "./HomeComponets/AnnouncementBar";
 import ColorModal from "./HomeComponets/gameBettingModal";
-import { FcRefresh } from "react-icons/fc";
+import { CiRepeat } from "react-icons/ci";
+
+
 import CountdownModal from "./HomeComponets/CountdownModal";
 
 // Utility to join class names
@@ -36,7 +38,7 @@ function cx(...classes) {
 const TabButton = ({ label, active, onClick, highlight }) => {
   const base =
     highlight === "gold"
-      ? "bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900"
+      ? "bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-[#8f5206]"
       : "bg-zinc-700 text-zinc-300";
 
   return (
@@ -278,9 +280,11 @@ const ActivityGame = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-5">
             <div className="text-2xl font-bold text-white">₹0.00</div>
-            <FcRefresh className="cursor-pointer transition-transform duration-500 hover:rotate-180 text-gray-400" />
+            <CiRepeat
+              className="cursor-pointer  text-gray-400"
+            />
           </div>
 
           <div className="flex items-center justify-center gap-1 mt-1">
@@ -304,7 +308,7 @@ const ActivityGame = () => {
         <AnnouncementBar />
       </div>
 
-      <div className="flex items-center justify-center  py- mt-4 bg-[#4d4d4c] mx-4 rounded-xl">
+      <div className="flex items-center justify-center  mt-4 bg-[#4d4d4c] mx-4 rounded-xl">
         {["WinGo 30sec", "WinGo 1 Min", "WinGo 3 Min", "WinGo 5 Min"].map(
           (game) => (
             <div
@@ -342,9 +346,9 @@ const ActivityGame = () => {
           style={{ backgroundImage: `url(${actiBanner})` }}
         >
           {/* How to play and Timer */}
-          <div className="flex items-center justify-between mb-4 p-">
+          <div className="flex items-center justify-between mb-1 p-">
             <div>
-              <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-1.5 rounded-xl text-[10px] font-semibold flex items-center gap-2 border border-1 border-gray-900 mt-1">
+              <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-1.5 rounded-xl text-[10px] font-semibold flex items-center gap-2 border border-1 border-black mt-1">
                 <img src={bookf} alt="book " className="w-3 h-3" />
                 How to play
               </button>
@@ -425,7 +429,7 @@ const ActivityGame = () => {
           color={selectedColor}
         />
         {/* Number Balls */}
-        <div className="grid grid-cols-5 gap-3 mb-4">
+        <div className="grid grid-cols-5 gap-3 mb-4 bg-[#242424] rounded-lg p-1">
           {numbers.map((n) => (
             <NumberBall
               key={n}
@@ -502,7 +506,7 @@ const ActivityGame = () => {
         {tab === "history" && (
           <div className="rounded-xl bg-zinc-800 overflow-hidden">
             {/* Table Header */}
-            <div className="grid grid-cols-4 gap-4 px-4 py-3 bg-zinc-700/50 text-xs font-semibold text-zinc-300">
+            <div className="grid grid-cols-4 gap-4 px-4 py-3 bg-[#3a3947] text-xs font-semibold text-zinc-300">
               <div>Period</div>
               <div className="text-center">Number</div>
               <div className="text-center">Big Small</div>
@@ -510,7 +514,7 @@ const ActivityGame = () => {
             </div>
 
             {/* Table Rows */}
-            <div className="divide-y divide-zinc-700/30">
+            <div className="divide-y divide-[#333332]">
               {historyRows.map((row, idx) => (
                 <div
                   key={row.period}
