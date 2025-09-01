@@ -270,7 +270,7 @@ const ActivityGame = () => {
     <div className="min-h-screen bg-zinc-900 text-white font-sans">
       {/* Wallet Section */}
       <div
-        className="mx-4 mt-4 rounded-2xl p-4 bg-cover bg-center relative overflow-hidden"
+        className="mx-4 mt-2 rounded-2xl py-2 px-2 bg-cover bg-center relative overflow-hidden"
         style={{ backgroundImage: `url(${bettingBanner})` }}
       >
         {/* Overlay optional */}
