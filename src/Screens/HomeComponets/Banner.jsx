@@ -23,7 +23,7 @@ const Banner = () => {
       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 
       {/* Slider container */}
-      <div className="relative w-full h-40 flex transition-transform duration-700 ease-in-out"
+      <div className="relative w-full h-50 flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((img, index) => (
@@ -32,6 +32,7 @@ const Banner = () => {
             src={img}
             alt={`banner-${index}`}
             className="w-full object-cover flex-shrink-0"
+           style={{height:'200px'}}
           />
         ))}
       </div>

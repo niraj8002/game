@@ -63,16 +63,26 @@ const GameGrid = ({onGameClick }) => {
 
   return (
     <div className="mx-2 mt-3">
-      <div className="grid grid-cols-3 gap-3">
-        {games.map((game, index, herf) => (
-          <GameCard
-            key={index}
-            title={game.title}
-            icon={game.icon}
-            onClick={() => onGameClick(index + 1)}
-          />
-        ))}
-      </div>
+<div className="grid grid-cols-3 gap-4">
+  {games.map((game, index) => (
+    <div
+      key={index}
+      onClick={() => onGameClick(index + 1)}
+      className="relative flex flex-col items-center justify-end pt-10 pb-0 px-4 rounded-xl bg-gradient-to-b from-[#F7D48C] to-[#DFA544] shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300"
+    >
+      {/* Game Icon (sticks out 2px on top) */}
+      <img
+        src={game.icon}
+        alt={game.title}
+        className="w-20 h-20 object-contain absolute -top-3 ms-1 "
+      />
+
+      {/* Game Title */}
+      <p className="text-black font-bold text-lg mx-4 mt-4 ">{game.title}</p>
+    </div>
+  ))}
+</div>
+
       <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer p-2 mt-3">
         <div className="grid grid-cols-3 divide-x divide-yellow-300">
           {games2.map((item, idx) => (
