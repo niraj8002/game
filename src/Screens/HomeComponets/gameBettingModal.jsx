@@ -24,25 +24,29 @@ const ColorModal = ({ open, onClose, color }) => {
     <>
       <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 ">
         {/* Modal Box */}
-        <div className="w-full max-w-md rounded-t-3xl bg-[#242424] text-white overflow-hidden animate-slideUp">
+        <div className="w-full max-w-md bg-[#242424] text-white overflow-hidden animate-slideUp">
           {/* Header - Green Section */}
           <div
-            className={`${colorStyles[color]} px-10 py-2 text-center relative`}
+            className={`${colorStyles[color]} px-12 py-2 text-center relative rounded-none`}
+            style={{
+              WebkitClipPath: "polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)",
+              clipPath: "polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)",
+            }}
           >
-            <h3 className="text-white font-semibold text-lg mb-2">
+            <h3 className="text-white font-semibold text-sm mb-2">
               WinGo 30sec
             </h3>
-            <div className="bg-white text-black py-1 px- rounded-lg font-semibold">
+            <div className="bg-white text-black py-1 px- rounded-lg font-semibold mb-4">
               Select {color?.charAt(0).toUpperCase() + color?.slice(1)}
             </div>
           </div>
 
           {/* Content */}
-          <div className="p-4 space-y-6">
+          <div className="px-4 pt-2 space-y-6">
             {/* Balance Section */}
             <div className="flex justify-between items-center mb-3">
               {/* Left side label */}
-              <h4 className="text-white text-lg font-semibold">Balance</h4>
+              <h4 className="text-white text-sm font-semibold">Balance</h4>
 
               {/* Right side buttons */}
               <div className="flex gap-2">
@@ -50,7 +54,7 @@ const ColorModal = ({ open, onClose, color }) => {
                   <button
                     key={amt}
                     onClick={() => setSelectedBalance(amt)}
-                    className={`py-2 px-3 rounded-lg font-semibold text-sm transition-colors ${
+                    className={`py-2 px-3 rounded-lg font-semibold text-[10px] transition-colors ${
                       selectedBalance === amt
                         ? `${colorStyles[color]} text-white`
                         : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -65,24 +69,24 @@ const ColorModal = ({ open, onClose, color }) => {
             {/* Quantity Section */}
             <div className="flex justify-between items-center mb-3">
               {/* Left side label */}
-              <h4 className="text-white text-lg font-semibold">Quantity</h4>
+              <h4 className="text-white text-md font-semibold">Quantity</h4>
 
               {/* Right side controls */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 ">
                 <button
                   onClick={() => handleQuantityChange(-1)}
-                  className={`w-10 h-10 rounded-lg ${colorStyles[color]} text-[#8f5214] font-bold flex items-center justify-center`}
+                  className={`w-8 h-8  rounded-lg ${colorStyles[color]} text-[#8f5214] font-bold flex items-center justify-center`}
                 >
                   -
                 </button>
 
-                <div className="w-16 h-10 bg-gray-800 rounded-lg border border-gray-600 flex items-center justify-center">
+                <div className="w-8 h-8 bg-gray-800 rounded-lg border border-gray-600 flex items-center justify-center">
                   <span className="text-white font-semibold">{quantity}</span>
                 </div>
 
                 <button
                   onClick={() => handleQuantityChange(1)}
-                  className={`w-10 h-10 rounded-lg ${colorStyles[color]} text-[#8f5214] font-bold flex items-center justify-center`}
+                  className={`w-8 h-8 rounded-lg ${colorStyles[color]} text-[#8f5214] font-bold flex items-center justify-center`}
                 >
                   +
                 </button>
@@ -141,15 +145,15 @@ const ColorModal = ({ open, onClose, color }) => {
 
             {/* Footer Buttons */}
           </div>
-          <div className="flex pt-2">
+          <div className="flex">
             <button
               onClick={onClose}
-              className="flex-1 bg-gray-700 text-gray-300 py-3  font-semibold hover:bg-gray-600 transition-colors"
+              className="flex-1 bg-gray-700 text-gray-300 py-1  font-semibold hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>
             <button
-              className={`flex-1 py-3 font-semibold text-white ${colorStyles[color]} hover:opacity-90 transition-opacity`}
+              className={`flex-1 py-1 font-semibold text-white ${colorStyles[color]} hover:opacity-90 transition-opacity`}
             >
               Total amount ₹{totalAmount}.00
             </button>
