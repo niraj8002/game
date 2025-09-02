@@ -7,10 +7,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 import bookf from "../assets/bookf.png";
+import watch from "../assets/watch.webp";
 import a from "../assets/t.webp";
 import b from "../assets/n.webp";
 import c from "../assets/s.webp";
 import d from "../assets/f.webp";
+import "./TicketCard.css";
 // Utility to join class names
 function cx(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -86,17 +88,19 @@ const PillButton = ({ label, active, onClick, color }) => {
     color === "green"
       ? "bg-emerald-500"
       : color === "violet"
-      ? "bg-violet-500"
-      : "bg-red-500";
+        ? "bg-violet-500"
+        : "bg-red-500";
 
   return (
     <button
       onClick={onClick}
       className={cx(
-        "h-8 flex-1 rounded-lg text-sm font-bold text-white",
+        "h-8 flex-1 m-1 rounded-bottom-end-circle text-sm font-bold text-white",
         base,
         active ? "ring-2 ring-gray-300 scale-105" : ""
+      
       )}
+      style={{borderBottomLeftRadius: "10px" ,borderTopRightRadius: "10px" }}
     >
       {label}
     </button>
@@ -108,8 +112,8 @@ const Chip = ({ label, active, intent = "muted", onClick }) => {
     intent === "random"
       ? "bg-red-600 text-white"
       : intent === "green"
-      ? "bg-emerald-600 text-white"
-      : "bg-zinc-700 text-zinc-200";
+        ? "bg-emerald-600 text-white"
+        : "bg-zinc-700 text-zinc-200";
 
   return (
     <button
@@ -125,6 +129,18 @@ const Chip = ({ label, active, intent = "muted", onClick }) => {
   );
 };
 
+const numbers = [
+  { value: 0, color: "violet" },
+  { value: 1, color: "green" },
+  { value: 2, color: "red" },
+  { value: 3, color: "green" },
+  { value: 4, color: "red" },
+  { value: 5, color: "violet" },
+  { value: 6, color: "red" },
+  { value: 7, color: "green" },
+  { value: 8, color: "red" },
+  { value: 9, color: "green" },
+];
 const NumberBall = ({ n, selected, onClick }) => {
   const colorForNumber = (num) => {
     const map = {
@@ -147,15 +163,15 @@ const NumberBall = ({ n, selected, onClick }) => {
     color === "green"
       ? "ring-emerald-500"
       : color === "violet"
-      ? "ring-violet-500"
-      : "ring-red-500";
+        ? "ring-violet-500"
+        : "ring-red-500";
 
   const ballGradient =
     color === "green"
       ? "from-emerald-300 to-emerald-400"
       : color === "violet"
-      ? "from-violet-300 to-violet-400"
-      : "from-red-300 to-red-400";
+        ? "from-violet-300 to-violet-400"
+        : "from-red-300 to-red-400";
 
   return (
     <button
@@ -187,27 +203,96 @@ const NumberBall = ({ n, selected, onClick }) => {
 };
 
 const Dot = ({ img }) => {
-  return <img src={img} className="w-7"/>;
+  return <img src={img} className="w-7" />;
 };
-
+ var check1 = "WinGo 30sec"
+ var selectColor = 'Number'
+ var selectNumber = 'color'
 const ActivityGame = () => {
   // UI State
   const [activeColor, setActiveColor] = useState("green");
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [multiplier, setMultiplier] = useState(1);
   const [sizePick, setSizePick] = useState("big");
-  
+
   const [tab, setTab] = useState("history");
-  const [activeGame, setActiveGame] = useState("30sec");
+  const [activeGame, setActiveGame] = useState("WinGo 30sec");
+  const [activeGameData, setActiveGameData] = useState();
 
   // Timer state - starts at 13 seconds to match screenshot
   const [seconds, setSeconds] = useState(13);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setSeconds((s) => (s > 0 ? s - 1 : 30));
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
+ useEffect(() => {
+        const interval = setInterval(() => {
+            pageLoad();
+            //RiderLocation();
+    console.log("activeColor",selectColor)
+    console.log("activeNumber",selectNumber)
+
+        }, 1000);
+        // pageLoad2();
+        return () => clearInterval(interval);
+
+    }, []);
+    const pageLoad = () => {
+        Countdown();
+        // getWallet();
+    }
+
+const [sec1, setSec1] = useState([0]);
+    const [sec2, setSec2] = useState([0]);
+    const [min, setMin] = useState([0,1]);
+   
+  const Countdown = () => {
+    // if(activeGameData !== undefined) {
+    //   check1= activeGameData
+    // }
+    console.log("active",check1)
+        var countDownDate = Date.parse(new Date) / 1e3;
+        //var now = new Date().getTime();
+        var distance = 30 - countDownDate % 30;
+      if(check1 == "WinGo 1 Min") {
+          distance = 60 - countDownDate % 60;
+      }
+       if(check1 == "WinGo 3 Min") {
+          distance = 180 - countDownDate % 180;
+      }
+       if(check1 == "WinGo 5 Min") {
+          distance = 300 - countDownDate % 300;
+      }
+        var i = distance / 60,
+            n = distance % 60;
+        //o = n / 10,
+        // s = n % 10;
+        var minutes = Math.floor(i);
+        setMin([0,minutes]);
+        var seconds = ('0' + Math.floor(n)).slice(-2);
+        var sec11 = (seconds % 100 - seconds % 10) / 10;
+        setSec1([sec11]);
+        var sec22 = seconds % 10;
+        setSec2([sec22]);
+
+
+        if (seconds === "29") {
+            // getPeriod();
+            // getGameResult();
+
+        }
+        // if (seconds === "27") {
+        //     getGame();
+
+        // }
+        if (seconds > 10) {
+            // setIsOpen(isOpen);
+        }
+        else {
+            if (seconds < 10) {
+                // onModalClose()
+                // setIsOpen(!isOpen);
+            }
+        }
+
+    }
+
 
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
@@ -260,6 +345,9 @@ const ActivityGame = () => {
       result: "Win +₹10",
     },
   ];
+  //  const [activeGame, setActiveGame] = useState("WinGo 30sec");
+
+  const games = ["WinGo 30sec", "WinGo 1 Min", "WinGo 3 Min", "WinGo 5 Min"];
 
   return (
     <div className="min-h-screen bg-zinc-900 text-white font-sans">
@@ -290,130 +378,89 @@ const ActivityGame = () => {
         </button>
       </div>
 
-      <div className="flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
+      <div className="flex items-center justify-center gap-3  mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
         {/* Active Button - WinGo 30 sec */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-md bg-gradient-to-b from-[#FFD77C] to-[#E6A93A] 
-          cursor-pointer
-          "
-          onClick={() => setActiveGame("WinGo 30sec")}
-        >
-          <svg
-            className="w-10 h-10 text-yellow-800 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 30sec
-          </span>
-        </div>
+        {games.map((game) => {
+          const isActive = activeGame === game;
+          return (
+            <div
+              key={game}
+              onClick={() => {setActiveGame(game); console.log("game",game);check1=game }}
+              className={`flex flex-col items-center justify-center w-24 h-24 rounded-xl cursor-pointer shadow-md transition-all duration-200 ${isActive
+                  ? "bg-gradient-to-b from-[#FFD77C] to-[#E6A93A]" // active = gold
+                  : "bg-gradient-to-b from-[#4c4c4b] to-[#4c4c4b]" // inactive = grey
+                }`}
+            >
+              <img src={watch} alt="watch" className="w-10 h-10 mb-1" />
+              <span
+                className={`text-[12px] font-medium `}
+                style={{
+                  color: isActive ? "#8f5206" : "#a8a5a1",
+                  cursor: "pointer"
+                }}
+                
+                
+              >
+                {game}
+              </span>
+            </div>
 
+          )
+        })}
         {/* Inactive Button - 1 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 1 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 1 sec
-          </span>
-        </div>
 
-        {/* Inactive Button - 3 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 3 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 3 Min
-          </span>
-        </div>
-
-        {/* Inactive Button - 5 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 5 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 5 Min
-          </span>
-        </div>
       </div>
 
       {/* Main Game Area */}
-      <div className="mx-4 mt-4 rounded-2xl bg-zinc-800 px-2">
-        <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-2xl px-3 py-2 mb-4">
-          {/* How to play and Timer */}
-          <div className="flex items-center justify-between mb-4 ">
-            <div>
-              <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-1 border-gray-900 mt-1">
-                <img src={bookf} alt="book " className="w-4 h-4" />
-                How to play
-              </button>
-              <spnn className="text-yellow-700 font-medium text-[10px] ml-2 tracking-wider">
-                {activeGame}
-              </spnn>
-            </div>
-            <div className="text-right">
-              <div className="text-xs text-gray-900">Time remaining</div>
-              <div className="flex items-center gap-1">
-                {[mm[0], mm[1], ":", ss[0], ss[1]].map((d, i) => (
-                  <span
-                    key={i}
-                    className={cx(
-                      "grid h-7 min-w-6 place-items-center rounded-md text-sm font-bold",
-                      d === ":"
-                        ? "bg-transparent px-0 text-white"
-                        : "bg-zinc-900 text-amber-300 px-1"
-                    )}
-                  >
-                    {d}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+      <div className="mx-4 mt-4 rounded-2xl bg-zinc-800 ">
+    <div className="ticket-card">
+      {/* Left Section */}
+      <div className="ticket-left">
+        {/* How to play button */}
+        <button className="play-btn">
+          <img src={bookf} alt="book" className="book-icon" />
+          How to play
+        </button>
 
-          {/* Period ID and Dots */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-1">
-              <Dot img={a} />
-              <Dot img={b} />
-              <Dot img={c} />
-              <Dot img={d} />
-              <Dot img={b} />
-            </div>
-            <span className="text-xs text-zinc-800  px-2 py-1 rounded">
-              {periodId}
-            </span>
-          </div>
+        {/* Game Name */}
+        <span className="game-name">{activeGame}</span>
+
+        {/* Colored balls */}
+        <div className="dots">
+          <img src={a} alt="dot" className="dot" />
+          <img src={b} alt="dot" className="dot" />
+          <img src={c} alt="dot" className="dot" />
+          <img src={d} alt="dot" className="dot" />
+          <img src={b} alt="dot" className="dot" />
         </div>
+      </div>
+
+      {/* Right Section */}
+      <div className="ticket-right">
+        <span className="time-label">Time remaining</span>
+
+        {/* Countdown */}
+        <div className="countdown">
+          {[min[0], min[1], ":", sec1[0], sec2[0]].map((d, i) => (
+            <span
+              key={i}
+              className={d === ":" ? "colon" : "digit"}
+            >
+              {d}
+            </span>
+          ))}
+        </div>
+
+        {/* Period ID */}
+        <span className="period-id">{periodId}</span>
+      </div>
+
+      {/* Ticket Cutouts */}
+      {/* <div className="cutout cutout-left"></div>
+      <div className="cutout cutout-right"></div> */}
+    </div>
+
+
 
         {/* Color Betting */}
 
@@ -422,19 +469,19 @@ const ActivityGame = () => {
             label="Green"
             color="green"
             active={activeColor === "green"}
-            onClick={() => setActiveColor("green")}
+            onClick={() =>{ setActiveColor("green");selectColor = "green";selectNumber= 'color'}}
           />
           <PillButton
             label="Violet"
             color="violet"
             active={activeColor === "violet"}
-            onClick={() => setActiveColor("violet")}
+            onClick={() => {setActiveColor("violet");selectColor = "violet";selectNumber= 'color'}}
           />
           <PillButton
             label="Red"
             color="red"
             active={activeColor === "red"}
-            onClick={() => setActiveColor("red")}
+            onClick={() => {setActiveColor("red");selectColor = "red";selectNumber= 'color'}}
           />
         </div>
 
@@ -445,7 +492,7 @@ const ActivityGame = () => {
               key={n}
               n={n}
               selected={selectedNumbers.includes(n)}
-              onClick={() => toggleNumber(n)}
+              onClick={() => {toggleNumber(n); ;selectColor = "Number";selectNumber= n}}
             />
           ))}
         </div>
@@ -547,8 +594,8 @@ const ActivityGame = () => {
                           row.color === "green"
                             ? "bg-emerald-500"
                             : row.color === "violet"
-                            ? "bg-violet-500"
-                            : "bg-red-500"
+                              ? "bg-violet-500"
+                              : "bg-red-500"
                         )}
                       />
                       {row.color === "violet" && row.number === 5 && (
@@ -690,19 +737,17 @@ const ActivityGame = () => {
                     {[...Array(10)].map((_, i) => (
                       <div
                         key={i}
-                        className={`flex items-center justify-center ${
-                          i === row.win
+                        className={`flex items-center justify-center ${i === row.win
                             ? "bg-green-500 text-white rounded-full w-6 h-6 mx-auto"
                             : "text-gray-400"
-                        }`}
+                          }`}
                       >
                         {i}
                       </div>
                     ))}
                     <div
-                      className={`px-2 py-3 font-bold text-center ${
-                        row.icon === "S" ? "text-blue-400" : "text-yellow-400"
-                      }`}
+                      className={`px-2 py-3 font-bold text-center ${row.icon === "S" ? "text-blue-400" : "text-yellow-400"
+                        }`}
                     >
                       {row.icon}
                     </div>
@@ -753,6 +798,8 @@ const ActivityGame = () => {
           </div>
         )}
       </div>
+
+      
     </div>
   );
 };

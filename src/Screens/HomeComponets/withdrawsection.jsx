@@ -1,12 +1,52 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ChevronLeft, ArrowLeft, RefreshCcw } from "lucide-react";
 import { FaWallet } from "react-icons/fa";
 import cbg from "../../assets/cardbg.webp";
+import { UserContext } from "../../globalContext";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../axiosInstance";
 
 function PaymentApp() {
   const [selectedAmount, setSelectedAmount] = useState("200");
-  const [customAmount, setCustomAmount] = useState("₹200.00-₹20,000.00");
-
+  const [customAmount, setCustomAmount] = useState(500);
+ const [wallet ,setWallet] = useState(null)
+  
+    
+  
+    const user = useContext(UserContext);
+    let navigate = useNavigate();
+    useEffect(() => {
+      
+      let mounted = true;
+      if (mounted) {
+  
+     
+        if (user.userId == null) {
+         window.location.reload(true);
+        }
+  
+        
+      }
+      pageLoad();
+      return () => (mounted = false);
+    }, []);
+  
+    const pageLoad = () => {
+      // if(props.ppp===true){
+      //   window.location.reload(true);
+      //  props.ppp(false)
+      // }
+       
+      getWallet()
+     
+    }
+  
+      const getWallet = () => {
+      axiosInstance.get(`/wallet/${user.userId}`).then((res) => {
+          let amount = res.data.data.depositeAmount +res.data.data.winningAmount;
+          setWallet(Math.floor(amount));
+      });
+    }
   const paymentChannels = [
     { name: "UPS APPay", balance: "200 - 20K", bonus: "3% bonus" },
     { name: "7Pay-GPay", balance: "200 - 20K", bonus: "3% bonus" },
@@ -52,7 +92,7 @@ function PaymentApp() {
                   <FaWallet className="text-yellow-700" /> Balance
                 </p>
                 <p className="text-2xl font-bold flex items-center gap-2">
-                  ₹0.00 <RefreshCcw className="w-4 h-4" />
+                  ₹{wallet}.00 <RefreshCcw className="w-4 h-4" />
                 </p>
               </div>
             </div>
@@ -187,13 +227,14 @@ function PaymentApp() {
 
           <div className="relative">
             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-400">
-              ₹
+              ₹ &nbsp; &nbsp;
             </span>
-            <input
+            
+            <input 
               type="text"
               value={customAmount}
               onChange={(e) => setCustomAmount(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 pl-8 text-white placeholder-gray-400"
+              className="m-2 w-full bg-gray-800 border border-gray-600 rounded-lg p-3 pl-8 text-white placeholder-gray-400"
             />
           </div>
         </div>
@@ -240,7 +281,7 @@ function PaymentApp() {
         </div>
 
         {/* Deposit History */}
-        <div>
+        {/* <div>
           <div className="flex items-center mb-4">
             <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
             <span className="text-yellow-400 font-semibold">
@@ -258,11 +299,11 @@ function PaymentApp() {
               <p>UPI APPay</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Button */}
         <div className="pb-8">
-          <button className="w-full bg-yellow-500 text-black font-semibold py-4 rounded-lg">
+          <button className="w-full bg-yellow-500 text-black font-semibold py-4 rounded-lg" onClick={()=>navigate('/qrPayment')}>
             Deposit
           </button>
         </div>

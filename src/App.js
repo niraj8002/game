@@ -41,6 +41,10 @@ import ChatWidget from "./Screens/chatwith";
 import WheelWidget from "./Screens/wheel";
 import ActivityGame from "./Screens/Activity";
 import PaymentApp from "./Screens/HomeComponets/withdrawsection";
+import Notification from "./Screens/Ludo/notification";
+import Agency from "./Screens/Agency";
+import QRPayment from "./Screens/qrScreen";
+import NewActivity from "./Screens/NewActivity";
 
 require("./Screens/login.css");
 
@@ -49,25 +53,36 @@ function App() {
   const [authToken, setAuthToken] = useState(null);
 
   useEffect(() => {
-    if (localStorage.getItem("authtoken")) {
-      const myDecodedToken = decodeToken(
-        JSON.parse(localStorage.getItem("authtoken"))
-      );
-      if (myDecodedToken?.role === undefined) {
-        myDecodedToken.role = "test";
-      }
-      setAuthToken(myDecodedToken);
-      setWaitstate(false);
 
-      localStorage.setItem(
-        "username",
-        JSON.parse(localStorage.getItem("authtoken")).name
-      );
+    if (
+      localStorage.getItem("authtoken") !== null &&
+      localStorage.getItem("authtoken") !== undefined
+    ) {
+
+      const myDecodedToken = decodeToken(JSON.parse(localStorage.getItem("authtoken")));
+      if (myDecodedToken.role === undefined) {
+        myDecodedToken.role = "test"
+        setAuthToken(myDecodedToken);
+      }
+      else {
+        setAuthToken(myDecodedToken);
+      }
+
+      setWaitstate(false);
+      localStorage.setItem("username", JSON.parse(localStorage.getItem("authtoken")).name)
     } else {
       setWaitstate(false);
       setAuthToken(null);
+      // window.location.href = "/";
+      //navigate("/LoginScreen", { replace: true });
+
     }
   }, []);
+  const validation = () => {
+
+    const myDecodedToken = decodeToken(JSON.parse(localStorage.getItem("authtoken")));
+    setAuthToken(myDecodedToken);
+  }
 
   return (
     <BrowserRouter>
@@ -95,16 +110,16 @@ function AuthRedirect({ authToken, children }) {
 function MainApp({ waitstate, authToken }) {
   const location = useLocation();
 
-  const hideNavbarRoutes = ["/LoginScreen", "/SignupScreen"];
+  const hideNavbarRoutes = ["/LoginScreen", "/SignupScreen","/Notification"];
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
+
+  const hideNavbarRoutes2 = ["/LoginScreen", "/SignupScreen","/Notification","/Agency"];
+  const shouldShowNavbar2 = !hideNavbarRoutes2.includes(location.pathname);
 
   return (
     <div className="App">
       {!waitstate && (
-        <UserContext.Provider
-          value={
-            authToken
-              ? {
+        <UserContext.Provider value={authToken !== null ? {
                   userId: authToken._id ?? 1,
                   userName: authToken.name ?? 1,
                   memberId: authToken.id ?? 1,
@@ -137,7 +152,7 @@ function MainApp({ waitstate, authToken }) {
         >
           <Layout className="layout">
             <ConfigProvider locale={enUS}>
-              <Header />
+             {shouldShowNavbar2 &&  <Header />}
               <Routes>
                 {/* 🔹 Public Routes */}
                 <Route
@@ -219,37 +234,30 @@ function MainApp({ waitstate, authToken }) {
                   }
                 />
                 <Route
-                  path="fastparity"
+                  path="newActivity"
                   element={
                     <ProtectedRoute authToken={authToken}>
-                      <Fastparity />
+                      <NewActivity />
                     </ProtectedRoute>
                   }
                 />
                 <Route
-                  path="parity"
+                  path="qrPayment"
                   element={
                     <ProtectedRoute authToken={authToken}>
-                      <Parity />
+                      <QRPayment />
                     </ProtectedRoute>
                   }
                 />
                 <Route
-                  path="dice"
+                  path="Agency"
                   element={
                     <ProtectedRoute authToken={authToken}>
-                      <Dice />
+                      <Agency />
                     </ProtectedRoute>
                   }
                 />
-                <Route
-                  path="jet"
-                  element={
-                    <ProtectedRoute authToken={authToken}>
-                      <JetX />
-                    </ProtectedRoute>
-                  }
-                />
+               
                 <Route
                   path="order"
                   element={
@@ -342,10 +350,11 @@ function MainApp({ waitstate, authToken }) {
                   path="Notification"
                   element={
                     <ProtectedRoute authToken={authToken}>
-                      <Notifiction />
+                      <Notification/>
                     </ProtectedRoute>
                   }
                 />
+                
               </Routes>
 
               {/* ✅ Navbar only if not on login/signup */}
