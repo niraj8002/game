@@ -7,11 +7,29 @@ import {
   ChevronRight,
 } from "lucide-react";
 import bookf from "../assets/bookf.png";
-import watch from "../assets/watch.webp";
 import a from "../assets/t.webp";
 import b from "../assets/n.webp";
 import c from "../assets/s.webp";
 import d from "../assets/f.webp";
+import e from "../assets/ss.webp";
+import f from "../assets/sss.webp";
+import g from "../assets/f.webp";
+import o from "../assets/o.webp";
+import tw from "../assets/tw.webp";
+import two from "../assets/two.webp";
+import one from "../assets/one.webp";
+import four from "../assets/four.webp";
+import ettt from "../assets/ettt.webp";
+import niii from "../assets/niii.webp";
+import bettingBanner from "../assets/bettingBanner.webp";
+import actiBanner from "../assets/activityBanner.webp";
+import AnnouncementBar from "./HomeComponets/AnnouncementBar";
+import ColorModal from "./HomeComponets/gameBettingModal";
+import { CiRepeat } from "react-icons/ci";
+
+
+import CountdownModal from "./HomeComponets/CountdownModal";
+
 // Utility to join class names
 function cx(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -87,19 +105,17 @@ const PillButton = ({ label, active, onClick, color }) => {
     color === "green"
       ? "bg-emerald-500"
       : color === "violet"
-        ? "bg-violet-500"
-        : "bg-red-500";
+      ? "bg-violet-500"
+      : "bg-red-500";
 
   return (
     <button
       onClick={onClick}
       className={cx(
-        "h-8 flex-1 m-1 rounded-bottom-end-circle text-sm font-bold text-white",
+        "h-8 flex-1 rounded-lg text-sm font-bold text-white",
         base,
         active ? "ring-2 ring-gray-300 scale-105" : ""
-      
       )}
-      style={{borderBottomLeftRadius: "10px" ,borderTopRightRadius: "10px" }}
     >
       {label}
     </button>
@@ -111,8 +127,8 @@ const Chip = ({ label, active, intent = "muted", onClick }) => {
     intent === "random"
       ? "text-red-600 outline outline-1 outline-red-600 ml-1"
       : intent === "green"
-        ? "bg-emerald-600 text-white"
-        : "bg-zinc-700 text-zinc-200";
+      ? "bg-emerald-600 text-white"
+      : "bg-zinc-700 text-zinc-200";
 
   return (
     <button
@@ -128,49 +144,19 @@ const Chip = ({ label, active, intent = "muted", onClick }) => {
   );
 };
 
-const numbers = [
-  { value: 0, color: "violet" },
-  { value: 1, color: "green" },
-  { value: 2, color: "red" },
-  { value: 3, color: "green" },
-  { value: 4, color: "red" },
-  { value: 5, color: "violet" },
-  { value: 6, color: "red" },
-  { value: 7, color: "green" },
-  { value: 8, color: "red" },
-  { value: 9, color: "green" },
-];
 const NumberBall = ({ n, selected, onClick }) => {
-  const colorForNumber = (num) => {
-    const map = {
-      0: "red",
-      1: "green",
-      2: "red",
-      3: "green",
-      4: "red",
-      5: "violet",
-      6: "red",
-      7: "green",
-      8: "red",
-      9: "green",
-    };
-    return map[num] || "red";
+  const images = {
+    0: o,
+    1: one,
+    2: two,
+    3: a,
+    4: four,
+    5: g,
+    6: f,
+    7: e,
+    8: ettt,
+    9: niii,
   };
-
-  const color = colorForNumber(n);
-  const ringColor =
-    color === "green"
-      ? "ring-emerald-500"
-      : color === "violet"
-      ? "ring-violet-500"
-      : "ring-red-500";
-
-  const ballGradient =
-    color === "green"
-      ? "from-emerald-300 to-emerald-400"
-      : color === "violet"
-      ? "from-violet-300 to-violet-400"
-      : "from-red-300 to-red-400";
 
   return (
     <div
@@ -188,11 +174,9 @@ const NumberBall = ({ n, selected, onClick }) => {
 };
 
 const Dot = ({ img }) => {
-  return <img src={img} className="w-7"/>;
+  return <img src={img} className="w-6" />;
 };
- var check1 = "WinGo 30sec"
- var selectColor = 'Number'
- var selectNumber = 'color'
+
 const ActivityGame = () => {
   // UI State
   const [activeColor, setActiveColor] = useState("green");
@@ -201,17 +185,38 @@ const ActivityGame = () => {
   const [sizePick, setSizePick] = useState("big");
 
   const [tab, setTab] = useState("history");
-  const [activeGame, setActiveGame] = useState("30sec");
+  const [activeGame, setActiveGame] = useState("WinGo 30sec");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(null);
 
   // Timer state - starts at 13 seconds to match screenshot
-  const [seconds, setSeconds] = useState(13);
+  const [seconds, setSeconds] = useState(20);
+  const [isLastFiveSeconds, setIsLastFiveSeconds] = useState(false);
+  const [showCountdownModal, setShowCountdownModal] = useState(false);
   useEffect(() => {
     const id = setInterval(() => {
-      setSeconds((s) => (s > 0 ? s - 1 : 30));
+      setSeconds((s) => {
+        if (s > 0) {
+          // Show modal in last 10 seconds
+          if (s <= 5 && !showCountdownModal) {
+            setShowCountdownModal(true);
+          }
+
+          // Last 5 seconds effect
+          if (s <= 5 && !isLastFiveSeconds) {
+            setIsLastFiveSeconds(true);
+          }
+
+          return s - 1;
+        } else {
+          setIsLastFiveSeconds(false);
+          setShowCountdownModal(false);
+          return 30;
+        }
+      });
     }, 1000);
     return () => clearInterval(id);
-  }, []);
-
+  }, [isLastFiveSeconds, showCountdownModal]);
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
   const periodId = useMemo(() => {
@@ -262,9 +267,6 @@ const ActivityGame = () => {
       result: "Win +₹10",
     },
   ];
-  //  const [activeGame, setActiveGame] = useState("WinGo 30sec");
-
-  const games = ["WinGo 30sec", "WinGo 1 Min", "WinGo 3 Min", "WinGo 5 Min"];
 
   return (
     <div className="min-h-screen bg-zinc-900 text-white font-sans">
@@ -306,104 +308,63 @@ const ActivityGame = () => {
         <AnnouncementBar />
       </div>
 
-      <div className="flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-[#4d4d4c] mx-4 rounded-lg">
-        {/* Active Button - WinGo 30 sec */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-md bg-gradient-to-b from-[#FFD77C] to-[#E6A93A] 
-          cursor-pointer
-          "
-          onClick={() => setActiveGame("WinGo 30sec")}
-        >
-          <svg
-            className="w-10 h-10 text-yellow-800 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 30sec
-          </span>
-        </div>
-
-        {/* Inactive Button - 1 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 1 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 1 sec
-          </span>
-        </div>
-
-        {/* Inactive Button - 3 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 3 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 3 Min
-          </span>
-        </div>
-
-        {/* Inactive Button - 5 Min */}
-        <div
-          className="flex flex-col items-center justify-center w-24 h-24 rounded-xl shadow-inner bg-gradient-to-b from-[#e6e6e6] to-[#a3a3a3]  cursor-pointer"
-          onClick={() => setActiveGame(" WinGo 5 Min")}
-        >
-          <svg
-            className="w-10 h-10 text-gray-600 mb-1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
-          </svg>
-          <span className="text-[10px] font-medium text-black flex items-center truncate">
-            WinGo 5 Min
-          </span>
-        </div>
+      <div className="flex items-center justify-center  mt-4 bg-[#4d4d4c] mx-4 rounded-xl">
+        {["WinGo 30sec", "WinGo 1 Min", "WinGo 3 Min", "WinGo 5 Min"].map(
+          (game) => (
+            <div
+              key={game}
+              className={`flex flex-col items-center justify-center w-24 h-20 rounded-xl  shadow-md cursor-pointer
+        ${
+          activeGame === game
+            ? "bg-gradient-to-b from-[#e0be72] to-[#d1a84e] rounded-xl"
+            : "bg-[#4d4d4c]"
+        }`}
+              onClick={() => setActiveGame(game)}
+            >
+              <svg
+                className={`w-10 h-10 mb-1 ${
+                  activeGame === game ? "text-yellow-800" : "text-[#ababaa]"
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 1a11 11 0 100 22 11 11 0 000-22zm0 20a9 9 0 110-18 9 9 0 010 18zm.5-13h-1v5.2l4.3 2.5.5-.8-3.8-2.2V8z" />
+              </svg>
+              <span className="text-[10px] font-medium text-black flex items-center truncate">
+                {game}
+              </span>
+            </div>
+          )
+        )}
       </div>
 
       {/* Main Game Area */}
-      <div className="mx-4 mt-4 rounded-2xl bg-zinc-800 px-2">
-        <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] rounded-2xl px-3 py-2 mb-4">
+      <div className="mx-4 mt-4 rounded-2xl px-2 bg-cover bg-center">
+        <div
+          className="rounded-2xl px-1 py-2 mb-4 bg-cover bg-center"
+          style={{ backgroundImage: `url(${actiBanner})` }}
+        >
           {/* How to play and Timer */}
-          <div className="flex items-center justify-between mb-4 ">
+          <div className="flex items-center justify-between mb-1 p-">
             <div>
-              <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-1 border-gray-900 mt-1">
-                <img src={bookf} alt="book " className="w-4 h-4" />
+              <button className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-zinc-900 px-3 py-1.5 rounded-xl text-[10px] font-semibold flex items-center gap-2 border border-1 border-black mt-1">
+                <img src={bookf} alt="book " className="w-3 h-3" />
                 How to play
               </button>
               <spnn className="text-yellow-700 font-medium text-[10px] ml-2 tracking-wider">
                 {activeGame}
               </spnn>
             </div>
-            <div className="text-right">
-              <div className="text-xs text-gray-900">Time remaining</div>
+            <div className="text-right mr-1">
+              <div className="text-xs text-gray-900 mb-1">Time remaining</div>
+              <CountdownModal seconds={seconds} isOpen={showCountdownModal} />
               <div className="flex items-center gap-1">
                 {[mm[0], mm[1], ":", ss[0], ss[1]].map((d, i) => (
                   <span
                     key={i}
                     className={cx(
-                      "grid h-7 min-w-6 place-items-center rounded-md text-sm font-bold",
+                      "grid h-7 min-w-5 place-items-center rounded-md text-sm font-bold transition-colors duration-500",
                       d === ":"
                         ? "bg-transparent px-0 text-white"
                         : "bg-zinc-900 text-amber-300 px-1"
@@ -417,7 +378,7 @@ const ActivityGame = () => {
           </div>
 
           {/* Period ID and Dots */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1">
               <Dot img={a} />
               <Dot img={b} />
@@ -425,7 +386,7 @@ const ActivityGame = () => {
               <Dot img={d} />
               <Dot img={b} />
             </div>
-            <span className="text-xs text-zinc-800  px-2 py-1 rounded">
+            <span className="text-[10px] text-zinc-800   py-1 rounded">
               {periodId}
             </span>
           </div>
@@ -438,19 +399,28 @@ const ActivityGame = () => {
             label="Green"
             color="green"
             active={activeColor === "green"}
-            onClick={() => setActiveColor("green")}
+            onClick={() => {
+              setSelectedColor("green");
+              setModalOpen(true);
+            }}
           />
           <PillButton
             label="Violet"
             color="violet"
             active={activeColor === "violet"}
-            onClick={() => setActiveColor("violet")}
+            onClick={() => {
+              setSelectedColor("violet");
+              setModalOpen(true);
+            }}
           />
           <PillButton
             label="Red"
             color="red"
             active={activeColor === "red"}
-            onClick={() => setActiveColor("red")}
+            onClick={() => {
+              setSelectedColor("red");
+              setModalOpen(true);
+            }}
           />
         </div>
         <ColorModal
@@ -465,7 +435,7 @@ const ActivityGame = () => {
               key={n}
               n={n}
               selected={selectedNumbers.includes(n)}
-              onClick={() => {toggleNumber(n); ;selectColor = "Number";selectNumber= n}}
+              onClick={() => toggleNumber(n)}
             />
           ))}
         </div>
@@ -579,8 +549,8 @@ const ActivityGame = () => {
                           row.color === "green"
                             ? "bg-emerald-500"
                             : row.color === "violet"
-                              ? "bg-violet-500"
-                              : "bg-red-500"
+                            ? "bg-violet-500"
+                            : "bg-red-500"
                         )}
                       />
                       {row.color === "violet" && row.number === 5 && (
@@ -722,17 +692,19 @@ const ActivityGame = () => {
                     {[...Array(10)].map((_, i) => (
                       <div
                         key={i}
-                        className={`flex items-center justify-center ${i === row.win
+                        className={`flex items-center justify-center ${
+                          i === row.win
                             ? "bg-green-500 text-white rounded-full w-6 h-6 mx-auto"
                             : "text-gray-400"
-                          }`}
+                        }`}
                       >
                         {i}
                       </div>
                     ))}
                     <div
-                      className={`px-2 py-3 font-bold text-center ${row.icon === "S" ? "text-blue-400" : "text-yellow-400"
-                        }`}
+                      className={`px-2 py-3 font-bold text-center ${
+                        row.icon === "S" ? "text-blue-400" : "text-yellow-400"
+                      }`}
                     >
                       {row.icon}
                     </div>
@@ -783,8 +755,6 @@ const ActivityGame = () => {
           </div>
         )}
       </div>
-
-      
     </div>
   );
 };
