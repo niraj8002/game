@@ -3,20 +3,16 @@ import img1 from "../../assets/lttboll.png";
 import img2 from "../../assets/lttmoto.png";
 import img3 from "../../assets/lttdis.png";
 import img4 from "../../assets/lttbb.png";
-import { UserContext } from "../../globalContext";
-import { useNavigate } from "react-router-dom";
 
 // Single card component
 const LotteryCard = ({ title, description, image }) => {
-  const user = useContext(UserContext);
-    let navigate = useNavigate();
   return (
     <div className="bg-gradient-to-br from-[#FBE29C] to-[#F6C444] text-black rounded-xl  flex items-center justify-between shadow-md hover:scale-[1.02] transition-transform duration-200">
-      <div className="px-2">
+      <Link to={herf} className="px-2">
         <h3 className="font-bold text-md">{title}</h3>
         {/* Display multi-line description correctly */}
-        <p className="text-sm font-medium truncate" >{description}</p>
-      </div>
+        <p className="text-sm font-medium truncate text-gray-600" >{description}</p>
+      </Link>
       <img src={image} alt={title} className="w-20  object-cover" />
     </div>
   );
@@ -42,7 +38,6 @@ function LotteryApp() {
       Green/Red/Violet to win
     </small>}
           image={img1}
-          
         />
         </div>
        

@@ -603,6 +603,8 @@ import {
 } from "lucide-react";
 import { FaWallet } from "react-icons/fa6";
 import { HiWallet } from "react-icons/hi2";
+import { FaLessThan } from "react-icons/fa6";
+
 import { FaMoneyCheck } from "react-icons/fa";
 import { RiBankCardFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
@@ -659,11 +661,18 @@ const UserWallet = () => {
   return (
     <div className=" min-h-screen bg-[#0f0f10] text-white relative overflow-hidden">
       {/* Header */}
+
       <div className="relative px-4 pt-2 pb-2 bg-gradient-to-b from-[#1c1c1e] to-[#141416] shadow">
         <div className="mt-3 flex flex-col items-center ">
-          <h1 className="mb-3 text-lg font-semibold text-gray-300 tracking-wider">
+          <h1 className="mb-3 text-lg font-semibold text-gray-300 tracking-wider flex items-center justify-center">
+            {/* Icon left */}
+            {/* Text center */}
             Wallet
           </h1>
+          <button onClick={() => window.history.back()}>
+            <FaLessThan className="absolute left-4 top-9 transform -translate-y-1/2 text-gray-400" />
+          </button>
+
           <div className=" flex flex-col items-center gap-1 text-3xl  tracking-tight">
             <div className="rounded-full bg-white/5 grid place-items-center -mb-0">
               <FaWallet size={30} className="opacity-90 mb-2 text-gray-300" />

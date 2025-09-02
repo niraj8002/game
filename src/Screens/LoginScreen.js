@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Phone, Lock, Mail, ChevronDown, EyeOff, Eye } from "lucide-react";
 import { FaMobileAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { message } from "antd"; 
+import { message } from "antd";
 import axios from "axios";
 import { FaLock } from "react-icons/fa6";
 import { RiCustomerService2Line } from "react-icons/ri";
@@ -228,17 +228,21 @@ const LoginScreen = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center px-4 py-2 mt-9">
+      <div className="flex justify-between items-center px-4 py-2 mt-9 mb-5">
         {/* Forget Password */}
         <div className="flex flex-col items-center space-x-2">
           <FaLock className="text-yellow-600 mb-3" size={25} />
-          <span className="text-[#ffffff]  text-lg">Forget Password</span>
+          <span className="text-[#ffffff]  text-md truncate ">
+            Forget Password
+          </span>
         </div>
 
         {/* Customer Service */}
         <div className="flex flex-col items-center space-x-2">
           <RiCustomerService2Line className="text-yellow-600 mb-3" size={25} />
-          <span className="text-[#ffffff] text-lg">Customer Service</span>
+          <span className="text-[#ffffff] text-md  truncate ">
+            Customer Service
+          </span>
         </div>
       </div>
     </div>
