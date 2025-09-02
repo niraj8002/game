@@ -6,6 +6,7 @@ import { message } from "antd";
 import axios from "axios";
 import { FaLock } from "react-icons/fa6";
 import { RiCustomerService2Line } from "react-icons/ri";
+import axiosInstance from "../axiosInstance";
 
 const LoginScreen = () => {
   const [tab, setTab] = useState("phone");
@@ -25,7 +26,7 @@ const LoginScreen = () => {
           ? { mobile: phoneNumber, password: password }
           : { email: email, password: password };
 
-      const res = await axios.post("http://localhost:6001/login", payload, {
+      const res = await axiosInstance.post("/login", payload, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -35,7 +36,7 @@ const LoginScreen = () => {
           localStorage.setItem("authtoken", JSON.stringify(res.data.auth));
 
           // ✅ Redirect to HomeScreen
-          navigate("/HomeScreen", { replace: true });
+          window.location.href = "/";
         } else if (res.data.responseCode === -2) {
           message.error("Your account is temporarily frozen");
         } else if (res.data.responseCode === -1) {

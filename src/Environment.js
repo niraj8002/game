@@ -11,7 +11,7 @@ const qa = {
     env: 'qa',
     url: {
         AUTH_URL:'http://localhost:5001',
-        API_URL: 'https://server.winningadda.com',
+        API_URL: 'https://api.ludokingjaipur.com',
         MYACCOUNT_URL: 'http://localhost:6001/myaccount'
     }
 }
@@ -26,4 +26,4 @@ function getEnv(env) {
 }
 
 //export const environment = getEnv(process.env.REACT_APP_ENV)
-export const environment = getEnv('development')
+export const environment = getEnv('qa')

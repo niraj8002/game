@@ -585,7 +585,7 @@
 
 // export default Wallet;
 
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   ArrowLeft,
   Wallet as WalletIcon,
@@ -607,7 +607,9 @@ import { FaLessThan } from "react-icons/fa6";
 
 import { FaMoneyCheck } from "react-icons/fa";
 import { RiBankCardFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../globalContext";
+import axiosInstance from "../../axiosInstance";
 
 /**
  * Mobile Wallet Screen (React + TailwindCSS)
@@ -618,6 +620,44 @@ import { Link } from "react-router-dom";
  */
 
 const UserWallet = () => {
+    const [wallet ,setWallet] = useState(null)
+  
+    
+  
+    const user = useContext(UserContext);
+    let navigate = useNavigate();
+    useEffect(() => {
+      
+      let mounted = true;
+      if (mounted) {
+  
+     
+        if (user.userId == null) {
+         window.location.reload(true);
+        }
+  
+        
+      }
+      pageLoad();
+      return () => (mounted = false);
+    }, []);
+  
+    const pageLoad = () => {
+      // if(props.ppp===true){
+      //   window.location.reload(true);
+      //  props.ppp(false)
+      // }
+       
+      getWallet()
+     
+    }
+  
+      const getWallet = () => {
+      axiosInstance.get(`/wallet/${user.userId}`).then((res) => {
+          let amount = res.data.data.depositeAmount +res.data.data.winningAmount;
+          setWallet(Math.floor(amount));
+      });
+    }
   return (
     <div className=" min-h-screen bg-[#0f0f10] text-white relative overflow-hidden">
       {/* Header */}
@@ -639,7 +679,7 @@ const UserWallet = () => {
             </div>
             <span className="text-gray-300">
               <span className="mr-1">₹</span>
-              <span>0.00</span>
+              <span>{wallet}.00</span>
             </span>
           </div>
           <p className="text-xs mt-1 opacity-70">Total balance</p>
@@ -651,7 +691,7 @@ const UserWallet = () => {
         <div className="rounded-2xl bg-[#17181a]  p-4 shadow-xl">
           {/* Rings row */}
           <div className="grid grid-cols-2 gap-4">
-            <Ring label="Main wallet" amount="₹0.00" percent={0} />
+            <Ring label="Main wallet" amount={`${wallet}.00`} percent={0} />
             <Ring label="3rd party wallet" amount="₹0.00" percent={0} />
           </div>
 
@@ -726,7 +766,7 @@ function Ring({ percent = 0, label, amount }) {
 function Action({ icon, label, tint, to }) {
   return (
     <Link to={to} className="flex flex-col items-center gap-2 active:scale-95">
-      <div className={`h-12 w-12 rounded-2xl grid place-items-center ${tint}`}>
+      <div className={`h-12 w-12 rounded-2xl mt-5  grid place-items-center ${tint}`}>
         {icon}
       </div>
       <span className="text-[11px] leading-tight text-center opacity-80 whitespace-pre-line">
